@@ -1,0 +1,52 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Chanon\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add --dev @iconify/react
+
+PATH: 
+  C:\Users\Chanon\Downloads\jdk-17.0.2\bin;C:\Python310\Scripts\;C:\Python310\;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Cadence\Orcad_9.2.3\tools\Capture;C:\Cadence\Orcad_9.2.3\tools\bin;C:\Cadence\Orcad_9.2.3\tools\jre\bin;C:\Cadence\Orcad_9.2.3\tools\fet\bin;C:\Cadence\Orcad_9.2.3\tools\specctra\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\MATLAB\R2021b\bin;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;D:\python\Python39\Scripts\;D:\python\Python39\;C:\Users\Chanon\AppData\Local\Microsoft\WindowsApps;D:\Microsoft VS Code\bin;C:\Users\Chanon\AppData\Roaming\npm
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  14.18.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'D:\work\eduty\eduty_stamp\node_modules\esbuild-windows-64\esbuild.exe'
+
+npm manifest: 
+  {
+    "name": "eduty_stamp",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+      "dev": "vite",
+      "build": "tsc && vite build",
+      "preview": "vite preview"
+    },
+    "dependencies": {
+      "@material-tailwind/react": "2.0.4",
+      "react": "18.2.0",
+      "react-dom": "18.2.0",
+      "react-router-dom": "^6.14.2"
+    },
+    "devDependencies": {
+      "@types/react": "18.0.17",
+      "@types/react-dom": "18.0.6",
+      "@vitejs/plugin-react": "2.1.0",
+      "autoprefixer": "10.4.14",
+      "postcss": "8.4.24",
+      "tailwindcss": "3.3.2",
+      "typescript": "4.6.4",
+      "vite": "3.1.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
