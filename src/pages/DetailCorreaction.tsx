@@ -1,4 +1,5 @@
 import {
+  Breadcrumbs,
   Button,
   IconButton,
   Input,
@@ -10,7 +11,7 @@ import { Icon } from "@iconify/react";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useState } from "react";
 
-export default function DataResult() {
+export default function DetailCorrection() {
   const [value, setValue] = useState({
     startDate: null,
     endDate: null,
@@ -68,84 +69,96 @@ export default function DataResult() {
 
   const table_head = [
     "No.",
-    "Lot Name",
-    "Approved By",
-    "Last Update Date",
-    "Total Doc",
-    "Total Payment",
+    "InstInfo ID",
+    "Tax Player ID",
+    "Name",
+    "Duty Amount",
+    "Service Charge Amount",
+    "Fine Amount",
+    "Total Amount",
     "Action",
   ];
 
   const table_rows = [
     {
       name: "John Michael",
-      approved: "Alexa Liras",
-      update: "07/08/2023",
-      docs: "10",
-      payment: "300",
+      taxID: "1102918928918",
+      InstInfo: "2562/10",
+      dutyAmount: 10,
+      serviceCharge: 10,
+      fineAmount: 10,
     },
     {
       name: "John Michael",
-      approved: "Alexa Liras",
-      update: "07/08/2023",
-      docs: "10",
-      payment: "300",
+      taxID: "1102918928918",
+      InstInfo: "2562/10",
+      dutyAmount: 10,
+      serviceCharge: 10,
+      fineAmount: 10,
     },
     {
       name: "John Michael",
-      approved: "Alexa Liras",
-      update: "07/08/2023",
-      docs: "10",
-      payment: "300",
+      taxID: "1102918928918",
+      InstInfo: "2562/10",
+      dutyAmount: 10,
+      serviceCharge: 10,
+      fineAmount: 10,
     },
     {
       name: "John Michael",
-      approved: "Alexa Liras",
-      update: "07/08/2023",
-      docs: "10",
-      payment: "300",
+      taxID: "1102918928918",
+      InstInfo: "2562/10",
+      dutyAmount: 10,
+      serviceCharge: 10,
+      fineAmount: 10,
     },
     {
       name: "John Michael",
-      approved: "Alexa Liras",
-      update: "07/08/2023",
-      docs: "10",
-      payment: "300",
+      taxID: "1102918928918",
+      InstInfo: "2562/10",
+      dutyAmount: 10,
+      serviceCharge: 10,
+      fineAmount: 10,
     },
     {
       name: "John Michael",
-      approved: "Alexa Liras",
-      update: "07/08/2023",
-      docs: "10",
-      payment: "300",
+      taxID: "1102918928918",
+      InstInfo: "2562/10",
+      dutyAmount: 10,
+      serviceCharge: 10,
+      fineAmount: 10,
     },
     {
       name: "John Michael",
-      approved: "Alexa Liras",
-      update: "07/08/2023",
-      docs: "10",
-      payment: "300",
+      taxID: "1102918928918",
+      InstInfo: "2562/10",
+      dutyAmount: 10,
+      serviceCharge: 10,
+      fineAmount: 10,
     },
     {
       name: "John Michael",
-      approved: "Alexa Liras",
-      update: "07/08/2023",
-      docs: "10",
-      payment: "300",
+      taxID: "1102918928918",
+      InstInfo: "2562/10",
+      dutyAmount: 10,
+      serviceCharge: 10,
+      fineAmount: 10,
     },
     {
       name: "John Michael",
-      approved: "Alexa Liras",
-      update: "07/08/2023",
-      docs: "10",
-      payment: "300",
+      taxID: "1102918928918",
+      InstInfo: "2562/10",
+      dutyAmount: 10,
+      serviceCharge: 10,
+      fineAmount: 10,
     },
     {
       name: "John Michael",
-      approved: "Alexa Liras",
-      update: "07/08/2023",
-      docs: "10",
-      payment: "300",
+      taxID: "1102918928918",
+      InstInfo: "2562/10",
+      dutyAmount: 10,
+      serviceCharge: 10,
+      fineAmount: 10,
     },
   ];
 
@@ -182,28 +195,40 @@ export default function DataResult() {
           </IconButton>
         </div>
       </div>
-
-      <Tabs className="overflow-auto my-5">
-        <TabsHeader className="h-12 rounded overflow-auto w-fit">
-          {data.map(({ label, value }) => (
-            <Tab
-              key={value}
-              value={value}
-              className="text-[13px] h-10 mx-1 w-36"
-            >
-              <div className="flex justify-between items-center w-32">
-                {label}
-                <div className="bg-black text-white px-[10px] h-6 rounded flex items-center">
-                  1
-                </div>
-              </div>
-            </Tab>
-          ))}
-        </TabsHeader>
-      </Tabs>
-
+      <div className="flex items-center">
+        <Breadcrumbs
+          className=" p-0 mb-5 bg-white"
+          separator={<Icon icon="iconamoon:arrow-right-2-light" />}
+        >
+          <a href="/" className="opacity-60">
+            Batch Data Result
+          </a>
+          <a href="/detail" className="opacity-60">
+            Detail Correction
+          </a>
+        </Breadcrumbs>
+      </div>
       <div className="w-full p-5 border-[#F9F9F9] border-2 rounded">
-        <span className="text-[14px]">Batch Date : 18/07/2023</span>
+        <div className="flex justify-between text-sm">
+          <div className="w-[60%] grid grid-cols-4 gap-3">
+            <span>Lot Name : Lot_1</span>
+            <span>Last Update: 18/07/2023</span>
+            <span>Total Doc : 10</span>
+            <span>Total Duty : 100</span>
+            <span>Total Survice Charge : 100</span>
+            <span>Total Fine : 100</span>
+            <span>Total Payment : 1000</span>
+          </div>
+          <div>
+            Status :
+            <Button
+              className="ml-2 rounded bg-[#EE9B00] shadow-none hover:shadow-none font-Montserrat normal-case"
+              size="sm"
+            >
+              Pending
+            </Button>
+          </div>
+        </div>
         <div className="relative overflow-x-auto mt-5">
           <table className="w-full text-center border-b border-[#DFDFDF] text-xs">
             <thead className="text-[#818181] border-b border-[#DFDFDF]">
@@ -217,11 +242,15 @@ export default function DataResult() {
               {table_rows.map((row, i) => (
                 <tr>
                   <td className="px-6 py-4">{i + 1}</td>
+                  <td className="px-6 py-4">{row.InstInfo}</td>
+                  <td className="px-6 py-4">{row.taxID}</td>
                   <td className="px-6 py-4">{row.name}</td>
-                  <td className="px-6 py-4">{row.approved}</td>
-                  <td className="px-6 py-4">{row.update}</td>
-                  <td className="px-6 py-4">{row.docs}</td>
-                  <td className="px-6 py-4">{row.payment}</td>
+                  <td className="px-6 py-4">{row.dutyAmount}</td>
+                  <td className="px-6 py-4">{row.serviceCharge}</td>
+                  <td className="px-6 py-4">{row.fineAmount}</td>
+                  <td className="px-6 py-4">
+                    {row.dutyAmount + row.serviceCharge + row.fineAmount}
+                  </td>
                   <td className="px-6 py-4 flex justify-center items-center">
                     <Icon
                       icon="mdi:file-edit-outline"
