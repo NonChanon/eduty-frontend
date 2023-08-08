@@ -1,5 +1,4 @@
 import { Input, Button } from "@material-tailwind/react";
-import type { ButtonStyleTypes } from "@material-tailwind/react";
 
 export default function Login() {
   return (
