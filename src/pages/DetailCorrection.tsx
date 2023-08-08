@@ -10,6 +10,8 @@ import {
 import { Icon } from "@iconify/react";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useState } from "react";
+import { useToggle } from "../hooks/useToggle";
+import EditDetail from "./EditDetail";
 
 export default function DetailCorrection() {
   const [value, setValue] = useState({
@@ -20,6 +22,17 @@ export default function DetailCorrection() {
   const handleValueChange = (newValue: any) => {
     console.log("newValue:", newValue);
     setValue(newValue);
+  };
+
+  const { status: isOpen, toggleStatus: setIsOpen } = useToggle();
+
+  const setHidden = () => {
+    setIsOpen();
+    if (document.body.style.overflow !== "hidden") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "scroll";
+    }
   };
 
   const [active, setActive] = useState(1);
@@ -222,7 +235,7 @@ export default function DetailCorrection() {
           <div>
             Status :
             <Button
-              className="ml-2 rounded bg-[#EE9B00] shadow-none hover:shadow-none font-Montserrat normal-case"
+              className="ml-2 rounded bg-[#EE9B00] shadow-none hover:shadow-none font-Montserrat normal-case cursor-default"
               size="sm"
             >
               Pending
@@ -251,7 +264,10 @@ export default function DetailCorrection() {
                   <td className="px-6 py-4">
                     {row.dutyAmount + row.serviceCharge + row.fineAmount}
                   </td>
-                  <td className="px-6 py-4 flex justify-center items-center">
+                  <td
+                    className="px-6 py-4 flex justify-center items-center"
+                    onClick={setHidden}
+                  >
                     <Icon
                       icon="mdi:file-edit-outline"
                       width="22"
@@ -302,6 +318,15 @@ export default function DetailCorrection() {
           </div>
         </div>
       </div>
+      <div className="flex justify-end mt-5">
+        <Button className="ml-2 rounded bg-[#B0B0B0] shadow-none hover:shadow-none font-Montserrat normal-case">
+          Denied
+        </Button>
+        <Button className="ml-2 rounded bg-[#000000] shadow-none hover:shadow-none font-Montserrat normal-case">
+          Submit
+        </Button>
+      </div>
+      {isOpen && <EditDetail onClick={setHidden} />}
     </div>
   );
 }
