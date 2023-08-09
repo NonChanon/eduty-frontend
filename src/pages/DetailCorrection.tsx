@@ -271,7 +271,7 @@ export default function DetailCorrection() {
                     <Icon
                       icon="mdi:file-edit-outline"
                       width="22"
-                      className="text-gray-600"
+                      className="text-gray-600 cursor-pointer"
                     />
                   </td>
                 </tr>

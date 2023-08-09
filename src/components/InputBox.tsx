@@ -9,7 +9,6 @@ export default function InputBox(props: InputBoxProps) {
   return (
     <div className="flex items-center justify-end">
       <label className="mr-3 text-right w-fit">{props.name}</label>
-
       <Input
         type="text"
         placeholder={props.name}
