@@ -11,7 +11,7 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<DataResult />} />
-        <Route path="/detail" element={<DetailCorrection />} />
+        <Route path="/:lotName/detail" element={<DetailCorrection />} />
       </Routes>
     </>
   );
