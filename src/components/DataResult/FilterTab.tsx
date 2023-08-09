@@ -1,6 +1,5 @@
 import { Tab, Tabs, TabsHeader } from "@material-tailwind/react";
 import { filterTabModel } from "../../services/DataResult/DataResultModel";
-import { useState } from "react";
 const filters = [
   {
     label: "All",
@@ -13,6 +12,11 @@ const filters = [
     asParam: "pending"
   },
   {
+    label: "Approve",
+    value: "countApprove",
+    asParam: "approve"
+  },
+  {
     label: "In progress",
     value: "countInProgress",
     asParam: "wait_for_approve"
@@ -21,11 +25,6 @@ const filters = [
     label: "Invalid Data",
     value: "countInvalidData",
     asParam: "invalid_data"
-  },
-  {
-    label: "Deny",
-    value: "countDeny",
-    asParam: "deny"
   }
 ];
 type thisModel = {
@@ -33,6 +32,38 @@ type thisModel = {
   amount: filterTabModel
 }
 export const FilterTab = (props:thisModel) => {
+  function twClassName(type:string, arg: string){
+    switch (type) {
+      case 'label':
+        switch (arg) {
+          case 'pending':
+            return "text-[13px] h-10 mx-1 w-36 text-[#EE9B00]"
+          case 'approve':
+            return "text-[13px] h-10 mx-1 w-36 text-[#39876D]"
+          case 'wait_for_approve':
+            return "text-[13px] h-10 mx-1 w-36 text-[#005F73]"
+          case 'invalid_data':
+            return "text-[13px] h-10 mx-1 w-36 text-[#AE2012]"
+          default:
+            return "text-[13px] h-10 mx-1 w-36";
+        }
+      case 'value':
+        switch (arg) {
+          case 'pending':
+            return "bg-[#EE9B00] text-white px-[10px] h-6 rounded flex items-center"
+          case 'approve':
+            return "bg-[#39876D] text-white px-[10px] h-6 rounded flex items-center"
+          case 'wait_for_approve':
+            return "bg-[#005F73] text-white px-[10px] h-6 rounded flex items-center"
+          case 'invalid_data':
+            return "bg-[#AE2012] text-white px-[10px] h-6 rounded flex items-center"
+          default:
+            return "bg-black text-white px-[10px] h-6 rounded flex items-center";
+        }
+      default:
+        break;
+    }
+  }
   return (
     <Tabs className="overflow-auto my-5" value="countAll">
       <TabsHeader
@@ -45,15 +76,17 @@ export const FilterTab = (props:thisModel) => {
           <Tab
             key={value}
             value={value}
-            className="text-[13px] h-10 mx-1 w-36"
+            className={twClassName("label", asParam)}
             nonce={undefined}
             onResize={undefined}
             onResizeCapture={undefined}
-            onClick={() => props.updateFilter(asParam)}
+            onClick={() => {
+              props.updateFilter(asParam);
+            }}
           >
             <div className="flex justify-between items-center w-32">
               {label}
-              <div className="bg-black text-white px-[10px] h-6 rounded flex items-center">
+              <div className={twClassName("value", asParam)}>
                 {props.amount[value as keyof filterTabModel]}
               </div>
             </div>

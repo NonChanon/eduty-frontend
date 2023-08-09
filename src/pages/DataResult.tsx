@@ -17,6 +17,7 @@ export default function DataResult() {
   });
 
   const [filter, setFilter] = useState("all");
+  const [month, setMonth] = useState("2023-08-01");
 
   const [data, setData] = useState<responseModel>({
     message: "",
@@ -58,9 +59,12 @@ export default function DataResult() {
     }
   });
 
-  const updateFilter = (newFilter: string) => {
+  const dataResultDisplayByFilter = (newFilter: string) => {
     console.log("Update Filter");
     setFilter(newFilter);
+    dataResultDisplay(newFilter, month, "1").then((res) => {
+      setData(res);
+    });
   }
 
   const handleValueChange = (newValue: any) => {
@@ -93,7 +97,7 @@ export default function DataResult() {
 
   useEffect(()=>{
     console.log("Hello")
-    dataResultDisplay("all", "2023-08-01", "1").then((res) => {
+    dataResultDisplay("all", month, "1").then((res) => {
       setData(res);
     });
   },[])
@@ -137,7 +141,7 @@ export default function DataResult() {
         </div>
       </div>
 
-      <FilterTab updateFilter={updateFilter} amount={data.amount}/>
+      <FilterTab updateFilter={dataResultDisplayByFilter} amount={data.amount}/>
 
       {
         Object.keys(data.data).map((batchDate:string) => {
