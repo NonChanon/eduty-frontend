@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useEffect, useState } from "react";
 import { FilterTab } from "../components/DataResult/FilterTab";
-import { dataResultDisplay } from "../services/DataResult/DataResultService";
+import { dataResultDisplay, dataResultDisplayPerDate } from "../services/DataResult/DataResultService";
 import { responseModel } from "../services/DataResult/DataResultModel";
 import { DataResultTable } from "../components/DataResult/DataResultTable";
 
@@ -15,6 +15,8 @@ export default function DataResult() {
     startDate: null,
     endDate: null,
   });
+
+  const [filter, setFilter] = useState("all");
 
   const [data, setData] = useState<responseModel>({
     message: "",
@@ -56,10 +58,38 @@ export default function DataResult() {
     }
   });
 
+  const updateFilter = (newFilter: string) => {
+    console.log("Update Filter");
+    setFilter(newFilter);
+  }
+
   const handleValueChange = (newValue: any) => {
     console.log("newValue:", newValue);
     setValue(newValue);
   };
+
+  const handleDisplayPerDate = (date: string, pageNo: string) => {
+    dataResultDisplayPerDate(filter, date, pageNo).then((res) => {
+      const batchDate:string = Object.keys(res.data)[0];
+      console.log("res:", res);
+      setData({
+        ...data, 
+        data:{
+          ...data.data,
+          [batchDate]:{
+            ...data.data[batchDate],
+            data: res.data[batchDate].data,
+            paging: res.data[batchDate].paging
+          }
+        }
+      });
+      // setData((prevData) => {
+      //   const newData = {...prevData}
+      //   newData.data[batchDate] = res.data[batchDate]
+      //   return newData
+      // });
+    });
+  }
 
   useEffect(()=>{
     console.log("Hello")
@@ -107,12 +137,12 @@ export default function DataResult() {
         </div>
       </div>
 
-      <FilterTab amount={data.amount}/>
+      <FilterTab updateFilter={updateFilter} amount={data.amount}/>
 
       {
         Object.keys(data.data).map((batchDate:string) => {
           return (
-            <DataResultTable batchDate={batchDate} data={data.data[batchDate].data}/>
+            <DataResultTable handleDisplayPerDate={handleDisplayPerDate} batchDate={batchDate} data={data.data[batchDate].data} paging={data.data[batchDate].paging}/>
           );
         })
       }

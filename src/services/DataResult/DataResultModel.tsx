@@ -23,7 +23,7 @@ export type pagingModel = {
     totalRowStr: string
 }
 
-export type filterModel = {
+export type filterTabModel = {
     countAll: string,
     countPending: string,
     countInProgress: string,
@@ -41,5 +41,5 @@ export type responseModel = {
             paging: pagingModel
         }
     },
-    amount: filterModel
+    amount: filterTabModel
 }

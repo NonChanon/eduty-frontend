@@ -1,7 +1,7 @@
 import { api } from "../axios";
 import { responseModel } from "./DataResultModel";
 
-const pageSize = 5;
+const pageSize = 2;
 export const dataResultDisplay = async (filter: string, month: string, pageNo: string) => {
     let { data } = await api.get<responseModel>(`/document/display`, {
         params: {
