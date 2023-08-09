@@ -153,6 +153,7 @@ export default function DataResult() {
     <div className="w-full mx-auto px-5 my-[70px]">
       <div className="md:flex md:justify-between md:items-center">
         <span className="font-[600] text-lg">Batch Data Result</span>
+
         <div className="flex items-center">
           <Datepicker
             showShortcuts={true}
