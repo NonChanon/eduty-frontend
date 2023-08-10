@@ -1,7 +1,7 @@
 # Eduty Stamp frontend
 
 # Please Read it all again cautiously
-# ⚠️** ***Don't forget to push to your branch first before merge to main!!!*** **⚠️
+# ⚠️** ***Don't forget to push to your branch before merge to main!!!*** **⚠️
 
 # Project Setup 🧰⚙️
 
