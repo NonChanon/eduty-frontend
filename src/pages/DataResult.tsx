@@ -6,8 +6,8 @@ import { Icon } from "@iconify/react";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useEffect, useState } from "react";
 import { FilterTab } from "../components/DataResult/FilterTab";
-import { dataResultDisplay, dataResultDisplayPerDate } from "../services/DataResult/DataResultService";
-import { responseModel } from "../services/DataResult/DataResultModel";
+import { display, displayPerDate } from "../services/DataResult/DataResultService";
+import { responseModel } from "../models/DataResult/DataResultModel";
 import { DataResultTable } from "../components/DataResult/DataResultTable";
 
 export default function DataResult() {
@@ -62,7 +62,7 @@ export default function DataResult() {
   const dataResultDisplayByFilter = (newFilter: string) => {
     console.log("Update Filter");
     setFilter(newFilter);
-    dataResultDisplay(newFilter, month, "1").then((res) => {
+    display(newFilter, month, "1").then((res) => {
       setData(res);
     });
   }
@@ -73,7 +73,7 @@ export default function DataResult() {
   };
 
   const handleDisplayPerDate = (date: string, pageNo: string) => {
-    dataResultDisplayPerDate(filter, date, pageNo).then((res) => {
+    displayPerDate(filter, date, pageNo).then((res) => {
       const batchDate:string = Object.keys(res.data)[0];
       console.log("res:", res);
       setData({
@@ -96,8 +96,8 @@ export default function DataResult() {
   }
 
   useEffect(()=>{
-    console.log("Hello")
-    dataResultDisplay("all", month, "1").then((res) => {
+    console.log("Hello");
+    display("all", month, "1").then((res) => {
       setData(res);
     });
   },[])

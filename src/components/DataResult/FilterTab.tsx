@@ -1,5 +1,5 @@
 import { Tab, Tabs, TabsHeader } from "@material-tailwind/react";
-import { filterTabModel } from "../../services/DataResult/DataResultModel";
+import { filterTabModel } from "../../models/DataResult/DataResultModel";
 const filters = [
   {
     label: "All",

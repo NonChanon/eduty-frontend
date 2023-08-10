@@ -3,6 +3,7 @@ import { Input } from "@material-tailwind/react";
 type InputBoxProps = {
   name: string;
   width: string;
+  placeholder: string;
 };
 
 export default function InputBox(props: InputBoxProps) {
@@ -11,7 +12,7 @@ export default function InputBox(props: InputBoxProps) {
       <label className="mr-3 text-right w-fit">{props.name}</label>
       <Input
         type="text"
-        placeholder={props.name}
+        placeholder={props.placeholder}
         className="!border !border-blue-gray-50 bg-white text-blue-gray-500  placeholder:text-blue-gray-200 text-xs"
         labelProps={{
           className: "hidden",

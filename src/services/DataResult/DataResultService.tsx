@@ -1,8 +1,8 @@
 import { api } from "../axios";
-import { responseModel } from "./DataResultModel";
+import { responseModel } from "../../models/DataResult/DataResultModel";
 
 const pageSize = 2;
-export const dataResultDisplay = async (filter: string, month: string, pageNo: string) => {
+export const display = async (filter: string, month: string, pageNo: string) => {
     let { data } = await api.get<responseModel>(`/document/display`, {
         params: {
           filter: filter,
@@ -15,7 +15,7 @@ export const dataResultDisplay = async (filter: string, month: string, pageNo: s
     return data;
   }
 
-export const dataResultDisplayPerDate = async (filter: string, date: string, pageNo: string) => {
+export const displayPerDate = async (filter: string, date: string, pageNo: string) => {
     let { data } = await api.get<responseModel>(`/document/display-per-date`, {
         params: {
           filter: filter,

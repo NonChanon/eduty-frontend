@@ -1,3 +1,17 @@
+import { pagingModel } from "../commons/GlobalModels"
+
+export type displayReqModel = {
+    filter: string,
+    month: string,
+    pageNo: string
+}
+
+export type displayPerDateReqModel = {
+    filter: string,
+    date: string,
+    pageNo: string
+}
+
 export type dataModel = {
     lotId: string,
     lotName: string,
@@ -9,18 +23,6 @@ export type dataModel = {
     totalPayment: string,
     totalDoc: string,
     approveBy: string,
-}
-
-export type pagingModel = {
-    pageNo: string,
-    pageSize: string,
-    rowsPerPageOption: string[],
-    totalPage: string,
-    totalRow: string,
-    pageSizeStr: string,
-    pageNoStr: string,
-    totalPageStr: string,
-    totalRowStr: string
 }
 
 export type filterTabModel = {
