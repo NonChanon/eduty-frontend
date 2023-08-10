@@ -1,6 +1,8 @@
 import { Icon } from "@iconify/react";
-import { dataModel, pagingModel } from "../../services/DataResult/DataResultModel";
-import { PagingTab } from "./PagingTab";
+import { dataModel } from "../../models/DataResult/DataResultModel";
+import { PagingTab } from "../commons/PagingTab";
+import { useNavigate } from "react-router-dom"
+import { pagingModel } from "../../models/commons/GlobalModels";
 
 const table_head = [
     "No.",
@@ -21,6 +23,8 @@ type thisModel = {
 }
 
 export const DataResultTable = (props:thisModel) => {
+
+  let navigate = useNavigate();
 
   const handleDisplayPerDate = (pageNo: string) => {
     props.handleDisplayPerDate(props.batchDate, pageNo);
@@ -79,14 +83,17 @@ export const DataResultTable = (props:thisModel) => {
                         <Icon
                           icon="mdi:file-edit-outline"
                           width="22"
-                          className="text-gray-600"
+                          className="cursor-pointer text-gray-600"
+                          onClick={() => {
+                            navigate(`/${lot.lotName}/detail`);
+                          }}
                         />
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-              <PagingTab handleDisplayPerDate={handleDisplayPerDate} totalPage={props.paging.totalPage as unknown as number}/>
+              <PagingTab handlePaging={handleDisplayPerDate} totalPage={props.paging.totalPage as unknown as number}/>
             </div>
         </div>
     );

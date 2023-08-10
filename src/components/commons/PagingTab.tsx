@@ -3,7 +3,7 @@ import { Button, IconButton } from "@material-tailwind/react";
 import { useState } from "react";
 
 type thisModel = {
-    handleDisplayPerDate: (pageNo: string) => void,
+    handlePaging: (pageNo: string) => void,
     totalPage: number
 }
 
@@ -19,18 +19,18 @@ export const PagingTab = (props:thisModel) => {
         : "text-black hover:bg-gray-100",
     onClick: () => {
         setActive(index);
-        props.handleDisplayPerDate(index as unknown as string);
+        props.handlePaging(index as unknown as string);
     },
     } as any);
     const next = () => {
         if (active === props.totalPage) return;
         setActive(active + 1);
-        props.handleDisplayPerDate((active + 1) as unknown as string)
+        props.handlePaging((active + 1) as unknown as string)
     };
     const prev = () => {
         if (active === 1) return;
         setActive(active - 1);
-        props.handleDisplayPerDate((active - 1) as unknown as string)
+        props.handlePaging((active - 1) as unknown as string)
     };
     const renderPageNumber = (totalPage: number) => {
         let list:any[] = [];
