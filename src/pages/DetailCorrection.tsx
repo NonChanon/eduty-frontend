@@ -62,6 +62,8 @@ export default function DetailCorrection() {
     }
   });
 
+  const [currentPage, setCurrentPage] = useState<string>("1");
+
   const [instId, setInstId] = useState("");
 
   const handleValueChange = (newValue: any) => {
@@ -78,20 +80,24 @@ export default function DetailCorrection() {
     } else {
       document.body.style.overflow = "scroll";
     }
+    display(lotName, currentPage).then((res) => {
+      setData(res);
+    });
   };
 
   useEffect(() => {
     console.log("useEffect Trigger");
-    display(lotName, "1").then((res) => {
+    display(lotName, currentPage).then((res) => {
       setData(res);
     });
   }, []);
 
   const handleDisplay = (pageNo: string) => {
     console.log("Change Page");
+    setCurrentPage(pageNo);
     display(lotName, pageNo).then((res) => {
       setData(res);
-    })
+    });
   };
 
   return (
@@ -152,7 +158,7 @@ export default function DetailCorrection() {
           Submit
         </Button>
       </div>
-      {isOpen && <EditDetail onClick={setHidden} instId={instId}/>}
+      {isOpen && <EditDetail setHidden={setHidden} instId={instId}/>}
     </div>
   );
 }
