@@ -36,6 +36,11 @@ export type payerModel = {
     relationship: string
 }
 
+export type updatePartyModel = {
+    partyTaxRegistrationId: string,
+    branchType: string
+}
+
 export type responseModel = {
     message: string,
     status: string,
