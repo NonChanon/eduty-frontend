@@ -9,3 +9,13 @@ export type pagingModel = {
     totalPageStr: string,
     totalRowStr: string
 }
+
+export type filterModel = {
+    label: string,
+    value: string,
+    asParam: string,
+}
+
+export type filterCountModel = {
+    [value:string]: string
+}

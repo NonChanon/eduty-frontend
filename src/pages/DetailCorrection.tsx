@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { useToggle } from "../hooks/useToggle";
 import EditDetail from "./EditDetail";
 import { HeaderSection } from "../components/DetailCorrection/HeaderSection";
-import { display } from "../services/DetailCorrection/DetailCorrectionService";
+import { display } from "../services/Detailcorrection/DetailCorrectionService";
 import { useLocation } from "react-router-dom";
 import { responseModel } from "../models/DetailCorrection/DetailCorrectionModel";
 import { TableSection } from "../components/DetailCorrection/TableSection";

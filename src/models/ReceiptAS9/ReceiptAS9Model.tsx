@@ -13,16 +13,14 @@ export type displayPerDateReqModel = {
 }
 
 export type dataModel = {
-    lotId: string,
     lotName: string,
-    sendRdStatus: string,
-    rdResponseMessage: string,
-    transactionDate: string,
-    totalDuty: string,
-    totalSurcharge: string,
-    totalPayment: string,
+    instId: string,
+    paymentDatetime: string,
     totalDoc: string,
-    approveBy: string,
+    totalPayment: string,
+    checkPayCode: string,
+    formFileData: string,
+    dutyReceipt: string
 }
 
 export type responseModel = {

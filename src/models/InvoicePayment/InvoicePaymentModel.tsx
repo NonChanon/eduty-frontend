@@ -13,16 +13,15 @@ export type displayPerDateReqModel = {
 }
 
 export type dataModel = {
-    lotId: string,
     lotName: string,
-    sendRdStatus: string,
-    rdResponseMessage: string,
-    transactionDate: string,
-    totalDuty: string,
-    totalSurcharge: string,
+    ref1: string,
+    ref2: string,
+    expireDate: string,
     totalPayment: string,
-    totalDoc: string,
-    approveBy: string,
+    paymentStatus: string,
+    paymentDatetime: string,
+    qrPayment: string,
+    payInSlipFile: string
 }
 
 export type responseModel = {

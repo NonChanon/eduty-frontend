@@ -14,6 +14,7 @@ export default function EditDetail(props: thisModel) {
     message: "",
     status: "",
     party: {
+      instId: "",
       contractNo: "",
       creationDate: "",
       effectiveDate: "",
@@ -93,7 +94,7 @@ export default function EditDetail(props: thisModel) {
           <div className="py-5">
             <span className="font-bold">Contract Detail</span>
             <div className="grid grid-cols-3 gap-2 pt-4">
-              <InputBox name="countryId" onChange={handleOnchange} title="Contract ID" width="60" placeholder={data.party.countryId} />
+              <InputBox name="countryId" onChange={handleOnchange} title="Contract ID" width="60" placeholder={data.party.instId} />
               <InputBox name="contractNo" onChange={handleOnchange} title="Contract Number" width="60" placeholder={data.party.contractNo} />
               <InputBox name="creationDate" onChange={handleOnchange} title="Creation Dater" width="60" placeholder={data.party.creationDate} />
               <InputBox name="effectiveDate" onChange={handleOnchange} title="Contract Start Date" width="60" placeholder={data.party.effectiveDate} />
