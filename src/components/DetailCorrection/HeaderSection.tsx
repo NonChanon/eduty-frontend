@@ -6,6 +6,25 @@ type thisModel = {
 }
 
 export const HeaderSection = (props:thisModel) => {
+  function twClassName(type:string, arg: string){
+    switch (type) {
+      case 'status':
+        switch (arg) {
+          case 'pending':
+            return "ml-2 rounded bg-[#EE9B00] shadow-none hover:shadow-none font-Montserrat capitalize cursor-default";
+          case 'approve':
+            return "ml-2 rounded bg-[#39876D] shadow-none hover:shadow-none font-Montserrat capitalize cursor-default";
+          case 'wait_for_approve':
+            return "ml-2 rounded bg-[#005F73] shadow-none hover:shadow-none font-Montserrat capitalize cursor-default";
+          case 'invalid_data':
+            return "ml-2 rounded bg-[#AE2012] shadow-none hover:shadow-none font-Montserrat capitalize cursor-default";
+          default:
+            return "ml-2 rounded bg-black shadow-none hover:shadow-none font-Montserrat capitalize cursor-default";
+        }
+      default:
+        break;
+    }
+  }
     return(
         <div className="flex justify-between text-sm">
           <div className="w-[60%] grid grid-cols-4 gap-3">
@@ -21,7 +40,7 @@ export const HeaderSection = (props:thisModel) => {
           <div>
             Status :
             <Button
-                className="ml-2 rounded bg-[#EE9B00] shadow-none hover:shadow-none font-Montserrat capitalize cursor-default"
+                className={twClassName('status', props.lot.sendRdStatus.toLowerCase())}
                 size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined}            >
               {props.lot.sendRdStatus.toLowerCase()}
             </Button>

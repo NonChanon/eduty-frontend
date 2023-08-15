@@ -5,7 +5,7 @@ import {
 import { Icon } from "@iconify/react";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useEffect, useState } from "react";
-import { FilterTab } from "../components/DataResult/FilterTab";
+import { FilterTab } from "../components/commons/FilterTab";
 import { display, displayPerDate } from "../services/DataResult/DataResultService";
 import { responseModel } from "../models/DataResult/DataResultModel";
 import { DataResultTable } from "../components/DataResult/DataResultTable";
@@ -58,6 +58,34 @@ export default function DataResult() {
       countDeny: "",
     }
   });
+
+  const allFilters = [
+    {
+      label: "All",
+      value: "countAll",
+      asParam: "all"
+    },
+    {
+      label: "Pending",
+      value: "countPending",
+      asParam: "pending"
+    },
+    {
+      label: "Approve",
+      value: "countApprove",
+      asParam: "approve"
+    },
+    {
+      label: "In progress",
+      value: "countInProgress",
+      asParam: "wait_for_approve"
+    },
+    {
+      label: "Invalid Data",
+      value: "countInvalidData",
+      asParam: "invalid_data"
+    }
+  ];
 
   const dataResultDisplayByFilter = (newFilter: string) => {
     console.log("Update Filter");
@@ -141,7 +169,7 @@ export default function DataResult() {
         </div>
       </div>
 
-      <FilterTab updateFilter={dataResultDisplayByFilter} amount={data.amount}/>
+      <FilterTab filters={allFilters} updateFilter={dataResultDisplayByFilter} amount={data.amount}/>
 
       {
         Object.keys(data.data).map((batchDate:string) => {

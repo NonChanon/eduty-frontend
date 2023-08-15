@@ -1,4 +1,5 @@
 export type partyModel = {
+    instId: string,
     contractNo: string,
     creationDate: string,
     effectiveDate: string,

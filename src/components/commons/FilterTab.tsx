@@ -1,35 +1,10 @@
 import { Tab, Tabs, TabsHeader } from "@material-tailwind/react";
-import { filterTabModel } from "../../models/DataResult/DataResultModel";
-const filters = [
-  {
-    label: "All",
-    value: "countAll",
-    asParam: "all"
-  },
-  {
-    label: "Pending",
-    value: "countPending",
-    asParam: "pending"
-  },
-  {
-    label: "Approve",
-    value: "countApprove",
-    asParam: "approve"
-  },
-  {
-    label: "In progress",
-    value: "countInProgress",
-    asParam: "wait_for_approve"
-  },
-  {
-    label: "Invalid Data",
-    value: "countInvalidData",
-    asParam: "invalid_data"
-  }
-];
+import { filterCountModel } from "../../models/commons/GlobalModels";
+import { filterModel } from "../../models/commons/GlobalModels";
 type thisModel = {
   updateFilter: (arg:string) => void,
-  amount: filterTabModel
+  filters: filterModel[],
+  amount: filterCountModel
 }
 export const FilterTab = (props:thisModel) => {
   function twClassName(type:string, arg: string){
@@ -44,6 +19,10 @@ export const FilterTab = (props:thisModel) => {
             return "text-[13px] h-10 mx-1 w-36 text-[#005F73]"
           case 'invalid_data':
             return "text-[13px] h-10 mx-1 w-36 text-[#AE2012]"
+          case 'n':
+            return "text-[13px] h-10 mx-1 w-36 text-[#EE9B00]"
+          case 'y':
+            return "text-[13px] h-10 mx-1 w-36 text-[#39876D]"
           default:
             return "text-[13px] h-10 mx-1 w-36";
         }
@@ -51,6 +30,10 @@ export const FilterTab = (props:thisModel) => {
         switch (arg) {
           case 'pending':
             return "bg-[#EE9B00] text-white px-[10px] h-6 rounded flex items-center"
+          case 'n':
+            return "bg-[#EE9B00] text-white px-[10px] h-6 rounded flex items-center"
+          case 'y':
+            return "bg-[#39876D] text-white px-[10px] h-6 rounded flex items-center"
           case 'approve':
             return "bg-[#39876D] text-white px-[10px] h-6 rounded flex items-center"
           case 'wait_for_approve':
@@ -72,7 +55,7 @@ export const FilterTab = (props:thisModel) => {
         onResize={undefined}
         onResizeCapture={undefined}
       >
-        {filters.map(({ label, value, asParam }) => (
+        {props.filters.map(({ label, value, asParam }) => (
           <Tab
             key={value}
             value={value}
@@ -87,7 +70,7 @@ export const FilterTab = (props:thisModel) => {
             <div className="flex justify-between items-center w-32">
               {label}
               <div className={twClassName("value", asParam)}>
-                {props.amount[value as keyof filterTabModel]}
+                {props.amount[value as keyof filterCountModel]}
               </div>
             </div>
           </Tab>

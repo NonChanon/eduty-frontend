@@ -3,6 +3,7 @@ import { Navbar } from "./components/Navbar";
 import DataResult from "./pages/DataResult";
 import Login from "./pages/Login";
 import DetailCorrection from "./pages/DetailCorrection";
+import InvoicePayment from "./pages/InvoicePayment";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <Route path="/home" element={<DataResult />} />
         <Route path="/" element={<Navigate replace={true} to="/home" />} />
         <Route path="/:lotName/detail" element={<DetailCorrection />} />
+        <Route path="/invoice" element={<InvoicePayment />} />
       </Routes>
     </>
   );
