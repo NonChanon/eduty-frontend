@@ -6,7 +6,6 @@ import { useToggle } from "../hooks/useToggle";
 export const Navbar = () => {
   const Links = [
     { name: "Batch Data Result", path: "/" },
-    { name: "RD Transaction", path: "/rd" },
     { name: "Invoice Payment", path: "/invoice" },
     { name: "Reciept & AS9", path: "/reciept" },
   ];
