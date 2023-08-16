@@ -3,6 +3,7 @@ import { dataModel } from "../../models/DataResult/DataResultModel";
 import { PagingTab } from "../commons/PagingTab";
 import { useNavigate } from "react-router-dom"
 import { pagingModel } from "../../models/commons/GlobalModels";
+import { useState } from "react";
 
 const table_head = [
     "No.",
@@ -17,6 +18,8 @@ const table_head = [
 
 type thisModel = {
     handleDisplayPerDate: (date: string, pageNo: string) => void,
+    onSearch: boolean,
+    handleSearch: (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
     batchDate: string,
     data: dataModel[],
     paging: pagingModel
@@ -25,6 +28,8 @@ type thisModel = {
 export const DataResultTable = (props:thisModel) => {
 
   let navigate = useNavigate();
+
+  const [active, setActive] = useState(1);
 
   const handleDisplayPerDate = (pageNo: string) => {
     props.handleDisplayPerDate(props.batchDate, pageNo);
@@ -93,7 +98,7 @@ export const DataResultTable = (props:thisModel) => {
                   ))}
                 </tbody>
               </table>
-              <PagingTab handlePaging={handleDisplayPerDate} totalPage={props.paging.totalPage as unknown as number}/>
+              <PagingTab handleSearch={props.handleSearch} onSearch={props.onSearch} handlePaging={handleDisplayPerDate} totalPage={props.paging.totalPage as unknown as number} active={active} setActive={setActive}/>
             </div>
         </div>
     );

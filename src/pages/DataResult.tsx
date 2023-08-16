@@ -6,15 +6,21 @@ import { Icon } from "@iconify/react";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useEffect, useState } from "react";
 import { FilterTab } from "../components/commons/FilterTab";
-import { display, displayPerDate } from "../services/DataResult/DataResultService";
+import { display, displayPerDate, search } from "../services/DataResult/DataResultService";
 import { responseModel } from "../models/DataResult/DataResultModel";
 import { DataResultTable } from "../components/DataResult/DataResultTable";
 
 export default function DataResult() {
-  const [value, setValue] = useState({
-    startDate: null,
-    endDate: null,
+
+  // const [value, setValue] = useState({
+  //   startDate: null,
+  //   endDate: null,
+  // });
+
+  const [searchLotName, setSearchLotName] = useState({
+    lotName: ""
   });
+  const [onSearch, setOnSearch] = useState(false);
 
   const [filter, setFilter] = useState("all");
   const [month, setMonth] = useState("2023-08-01");
@@ -95,17 +101,35 @@ export default function DataResult() {
     });
   }
 
-  const handleValueChange = (newValue: any) => {
-    console.log("newValue:", newValue);
-    setValue(newValue);
-  };
+  const handleSearch = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    console.log("Search Function!");
+    if (searchLotName.lotName === "" || searchLotName.lotName === null) {
+        setOnSearch(false);
+        display("all", month, "1").then((res) => {
+          setData(res);
+        });
+        return;
+    }
+    search(searchLotName.lotName, "1").then((res) => {
+      setData({
+        ...data,
+        data: res.data
+      });
+      setOnSearch(true);
+    });
+  }
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchLotName({...searchLotName, [e.target.name]: e.target.value})
+  }
 
   const handleDisplayPerDate = (date: string, pageNo: string) => {
     displayPerDate(filter, date, pageNo).then((res) => {
       const batchDate:string = Object.keys(res.data)[0];
       console.log("res:", res);
       setData({
-        ...data, 
+        ...data,
         data:{
           ...data.data,
           [batchDate]:{
@@ -115,15 +139,10 @@ export default function DataResult() {
           }
         }
       });
-      // setData((prevData) => {
-      //   const newData = {...prevData}
-      //   newData.data[batchDate] = res.data[batchDate]
-      //   return newData
-      // });
     });
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("Hello");
     display("all", month, "1").then((res) => {
       setData(res);
@@ -137,7 +156,7 @@ export default function DataResult() {
       <div className="md:flex md:justify-between md:items-center">
         <span className="font-[600] text-lg">Batch Data Result</span>
         <div className="flex items-center">
-          <Datepicker
+          {/* <Datepicker
             showShortcuts={true}
             useRange={false}
             asSingle={true}
@@ -146,12 +165,16 @@ export default function DataResult() {
             onChange={handleValueChange}
             inputClassName="w-60 h-10 px-3 py-2 border-[1px] rounded border-blue-gray-200 text-sm"
             containerClassName="relative text-gray-700 w-60"
-          />
+          /> */}
           <div className="w-60 mx-3 flex items-center">
             <Input
+              name="lotName"
               label="Lot Name"
               color="black"
               className="!rounded"
+              onChange={(e) => {
+                handleSearchChange(e);
+              }}
               containerProps={{
                 className: "",
               }}
@@ -163,18 +186,23 @@ export default function DataResult() {
               onResizeCapture={undefined}            
             />
           </div>
-          <IconButton className="bg-black shadow-none hover:shadow-none rounded" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+          <IconButton
+            className="bg-black shadow-none hover:shadow-none rounded" 
+            onClick={(e) => {
+              handleSearch(e);
+            }}
+            nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
             <Icon icon="tabler:search" width="16" />
           </IconButton>
         </div>
       </div>
 
       <FilterTab filters={allFilters} updateFilter={dataResultDisplayByFilter} amount={data.amount}/>
-
       {
         Object.keys(data.data).map((batchDate:string) => {
+          
           return (
-            <DataResultTable handleDisplayPerDate={handleDisplayPerDate} batchDate={batchDate} data={data.data[batchDate].data} paging={data.data[batchDate].paging}/>
+            <DataResultTable key={batchDate} onSearch={onSearch} handleSearch={handleSearch} handleDisplayPerDate={handleDisplayPerDate} batchDate={batchDate} data={data.data[batchDate].data} paging={data.data[batchDate].paging}/>
           );
         })
       }

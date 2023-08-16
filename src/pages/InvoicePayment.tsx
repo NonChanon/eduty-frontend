@@ -116,7 +116,7 @@ export default function InvoicePayment() {
     return (
       <div className="w-full mx-auto px-5 my-[70px]">
         <div className="md:flex md:justify-between md:items-center">
-          <span className="font-[600] text-lg">Batch Data Result</span>
+          <span className="font-[600] text-lg">Invoice Payment</span>
           <div className="flex items-center">
             <Datepicker
               showShortcuts={true}

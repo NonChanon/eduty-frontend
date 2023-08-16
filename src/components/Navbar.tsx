@@ -8,7 +8,7 @@ export const Navbar = () => {
     { name: "Batch Data Result", path: "/" },
     { name: "RD Transaction", path: "/rd" },
     { name: "Invoice Payment", path: "/invoice" },
-    { name: "Reciept & AS9", path: "/reciept" },
+    { name: "Reciept & AS9", path: "/receipt" },
   ];
 
   const { status: isOpen, toggleStatus: setIsOpen } = useToggle();

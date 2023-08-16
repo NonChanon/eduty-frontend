@@ -1,36 +1,37 @@
 import { Icon } from "@iconify/react";
 import { Button, IconButton } from "@material-tailwind/react";
-import { useState } from "react";
 
 type thisModel = {
     handlePaging: (pageNo: string) => void,
-    totalPage: number
+    handleSearch: (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
+    onSearch: boolean,
+    totalPage: number,
+    active: number,
+    setActive: (index: number) => void
 }
 
 export const PagingTab = (props:thisModel) => {
-    const [active, setActive] = useState(1);
-
     const getItemProps = (index: number) =>
     ({
-    variant: active === index ? "filled" : "text",
+    variant: props.active === index ? "filled" : "text",
     className:
-        active === index
+        props.active === index
         ? "bg-black text-white rounded"
         : "text-black hover:bg-gray-100",
-    onClick: () => {
-        setActive(index);
-        props.handlePaging(index as unknown as string);
+    onClick: (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        props.setActive(index);
+        props.onSearch === true ? props.handleSearch(e) : props.handlePaging(index as unknown as string)
     },
     } as any);
-    const next = () => {
-        if (active === props.totalPage) return;
-        setActive(active + 1);
-        props.handlePaging((active + 1) as unknown as string)
+    const next = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        if (props.active === props.totalPage) return;
+        props.setActive(props.active + 1);
+        props.onSearch === true ? props.handleSearch(e) : props.handlePaging((props.active + 1) as unknown as string)
     };
-    const prev = () => {
-        if (active === 1) return;
-        setActive(active - 1);
-        props.handlePaging((active - 1) as unknown as string)
+    const prev = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        if (props.active === 1) return;
+        props.setActive(props.active - 1);
+        props.onSearch === true ? props.handleSearch(e) : props.handlePaging((props.active - 1) as unknown as string)
     };
     const renderPageNumber = (totalPage: number) => {
         let list:any[] = [];
@@ -49,8 +50,8 @@ export const PagingTab = (props:thisModel) => {
                     variant="text"
                     size="sm"
                     className="flex items-center gap-2 font-Montserrat normal-case text-black"
-                    onClick={prev}
-                    disabled={active === 1}
+                    onClick={(e) => prev(e)}
+                    disabled={props.active === 1}
                     nonce={undefined} 
                     onResize={undefined} 
                     onResizeCapture={undefined}
@@ -62,8 +63,8 @@ export const PagingTab = (props:thisModel) => {
                     variant="text"
                     size="sm"
                     className="flex items-center gap-2 font-Montserrat normal-case text-black"
-                    onClick={next}
-                    disabled={active === props.totalPage} nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+                    onClick={(e) => next(e)}
+                    disabled={props.active === props.totalPage} nonce={undefined} onResize={undefined} onResizeCapture={undefined}
                 >
                     Next
                     <Icon icon="ep:arrow-right-bold" />

@@ -1,4 +1,4 @@
-import { filterCountModel, pagingModel } from "../commons/GlobalModels"
+import { pagingModel } from "../commons/GlobalModels"
 
 export type displayReqModel = {
     filter: string,
@@ -14,13 +14,10 @@ export type displayPerDateReqModel = {
 
 export type dataModel = {
     lotName: string,
-    instId: string,
+    apiRefNo: string,
     paymentDatetime: string,
     totalDoc: string,
     totalPayment: string,
-    checkPayCode: string,
-    formFileData: string,
-    dutyReceipt: string
 }
 
 export type responseModel = {
@@ -31,6 +28,5 @@ export type responseModel = {
             data: dataModel[],
             paging: pagingModel
         }
-    },
-    amount: filterCountModel
+    }
 }

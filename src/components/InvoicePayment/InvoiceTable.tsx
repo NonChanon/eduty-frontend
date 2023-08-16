@@ -2,6 +2,7 @@ import { dataModel } from "../../models/InvoicePayment/InvoicePaymentModel";
 import { PagingTab } from "../commons/PagingTab";
 import { pagingModel } from "../../models/commons/GlobalModels";
 import { Icon } from "@iconify/react";
+import { useState } from "react";
 
 const table_head = [
     "No.",
@@ -24,6 +25,8 @@ type thisModel = {
 }
 
 export const InvoiceTable = (props:thisModel) => {
+
+  const [active, setActive] = useState(1);
 
   const handleDisplayPerDate = (pageNo: string) => {
     props.handleDisplayPerDate(props.batchDate, pageNo);
@@ -93,7 +96,7 @@ export const InvoiceTable = (props:thisModel) => {
                   ))}
                 </tbody>
               </table>
-              <PagingTab handlePaging={handleDisplayPerDate} totalPage={props.paging.totalPage as unknown as number}/>
+              <PagingTab handlePaging={handleDisplayPerDate} totalPage={props.paging.totalPage as unknown as number} active={active} setActive={setActive}/>
             </div>
         </div>
     );
