@@ -2,10 +2,9 @@ import { api } from "../axios";
 import { responseModel } from "../../models/ReceiptAS9/ReceiptAS9Model";
 
 const pageSize = 2;
-export const display = async (filter: string, month: string, pageNo: string) => {
+export const display = async (month: string, pageNo: string) => {
     let { data } = await api.get<responseModel>(`/receipt-as9/display`, {
         params: {
-          filter: filter,
           inputMonth: month,
           pageNo: pageNo,
           pageSize: pageSize,
@@ -15,10 +14,9 @@ export const display = async (filter: string, month: string, pageNo: string) => 
     return data;
   }
 
-export const displayPerDate = async (filter: string, date: string, pageNo: string) => {
+export const displayPerDate = async (date: string, pageNo: string) => {
     let { data } = await api.get<responseModel>(`/receipt-as9/display-per-date`, {
         params: {
-          filter: filter,
           inputDate: date,
           pageNo: pageNo,
           pageSize: pageSize,

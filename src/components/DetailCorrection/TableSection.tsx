@@ -2,13 +2,16 @@ import { Icon } from "@iconify/react";
 import { PagingTab } from "../commons/PagingTab";
 import { detailModel } from "../../models/DetailCorrection/DetailCorrectionModel";
 import { pagingModel } from "../../models/commons/GlobalModels";
+import { useEffect, useState } from "react";
 
 type thisModel = {
     detail: detailModel[],
     paging: pagingModel,
+    onSearch: boolean,
+    handleSearch: (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
     handleDisplay: (pageNo: string) => void,
     setHidden: () => void,
-    setInstId: (instId: string) => void
+    setInstId: (instId: string) => void,
 }
 
 export const TableSection = (props:thisModel) => {
@@ -23,14 +26,19 @@ export const TableSection = (props:thisModel) => {
         "Total Amount",
         "Action",
       ];
+    const [active, setActive] = useState(1);
 
+    useEffect(() => {
+      setActive(1);
+    }, [props.paging.totalPage])
+    
     return (
         <div className="relative overflow-x-auto mt-5">
           <table className="w-full text-center border-b border-[#DFDFDF] text-xs">
             <thead className="text-[#818181] border-b border-[#DFDFDF]">
               <tr>
                 {table_head.map((head) => (
-                  <th className="px-6 py-4">{head}</th>
+                  <th key={head} className="px-6 py-4">{head}</th>
                 ))}
               </tr>
             </thead>
@@ -60,7 +68,7 @@ export const TableSection = (props:thisModel) => {
               ))}
             </tbody>
           </table>
-          <PagingTab totalPage={props.paging.totalPage as unknown as number} handlePaging={props.handleDisplay}/>
+          <PagingTab totalPage={props.paging.totalPage as unknown as number} onSearch={props.onSearch} handleSearch={props.handleSearch} handlePaging={props.handleDisplay} active={active} setActive={setActive}/>
         </div>
     );
 }

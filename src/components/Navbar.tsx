@@ -7,7 +7,7 @@ export const Navbar = () => {
   const Links = [
     { name: "Batch Data Result", path: "/" },
     { name: "Invoice Payment", path: "/invoice" },
-    { name: "Reciept & AS9", path: "/reciept" },
+    { name: "Reciept & AS9", path: "/receipt" },
   ];
 
   const { status: isOpen, toggleStatus: setIsOpen } = useToggle();

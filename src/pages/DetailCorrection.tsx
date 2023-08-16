@@ -5,13 +5,12 @@ import {
   Input,
 } from "@material-tailwind/react";
 import { Icon } from "@iconify/react";
-import Datepicker from "react-tailwindcss-datepicker";
 import { useEffect, useState } from "react";
 import { useToggle } from "../hooks/useToggle";
 import EditDetail from "./EditDetail";
 import { HeaderSection } from "../components/DetailCorrection/HeaderSection";
-import { display } from "../services/Detailcorrection/DetailCorrectionService";
-import { useLocation } from "react-router-dom";
+import { display, search } from "../services/Detailcorrection/DetailCorrectionService";
+import { Link, useLocation } from "react-router-dom";
 import { responseModel } from "../models/DetailCorrection/DetailCorrectionModel";
 import { TableSection } from "../components/DetailCorrection/TableSection";
 
@@ -20,9 +19,8 @@ export default function DetailCorrection() {
   const location = useLocation();
   const lotName:string = location.pathname.split('/')[1];
 
-  const [value, setValue] = useState({
-    startDate: null,
-    endDate: null,
+  const [searchTaxId, setSearchTaxId] = useState({
+    partyTaxRegistration: ""
   });
 
   const [data, setData] = useState<responseModel>({
@@ -66,10 +64,24 @@ export default function DetailCorrection() {
 
   const [instId, setInstId] = useState("");
 
-  const handleValueChange = (newValue: any) => {
-    console.log("newValue:", newValue);
-    setValue(newValue);
-  };
+  const [onSearch, setOnSearch] = useState(false);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTaxId({...searchTaxId, [e.target.name]: e.target.value})
+  }
+
+  const handleSearch = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    console.log("Search Function!");
+    if (searchTaxId.partyTaxRegistration === "") {
+      return handleDisplay(currentPage);
+    }
+    search(lotName, searchTaxId.partyTaxRegistration, "1").then((res) => {
+      setCurrentPage("1");
+      setData(res);
+      setOnSearch(true);
+    });
+  }
 
   const { status: isOpen, toggleStatus: setIsOpen } = useToggle();
 
@@ -95,6 +107,7 @@ export default function DetailCorrection() {
   const handleDisplay = (pageNo: string) => {
     console.log("Change Page");
     setCurrentPage(pageNo);
+    setOnSearch(false);
     display(lotName, pageNo).then((res) => {
       setData(res);
     });
@@ -103,23 +116,17 @@ export default function DetailCorrection() {
   return (
     <div className="w-full mx-auto px-5 my-[70px]">
       <div className="md:flex md:justify-between md:items-center">
-        <span className="font-[600] text-lg">Batch Data Result</span>
+        <span className="font-[600] text-lg">Detail Correction</span>
         <div className="flex items-center">
-          <Datepicker
-            showShortcuts={true}
-            useRange={false}
-            asSingle={true}
-            value={value}
-            displayFormat={"DD/MM/YYYY"}
-            onChange={handleValueChange}
-            inputClassName="w-60 h-10 px-3 py-2 border-[1px] rounded border-blue-gray-200 text-sm"
-            containerClassName="relative text-gray-700 w-60"
-          />
           <div className="w-60 mx-3 flex items-center">
             <Input
-              label="Lot Name"
+              name="partyTaxRegistration"
+              label="Tax ID"
               color="black"
               className="!rounded"
+              onChange={(e) => {
+                handleSearchChange(e);
+              }}
               containerProps={{
                 className: "",
               }}
@@ -128,6 +135,9 @@ export default function DetailCorrection() {
               }} nonce={undefined} onResize={undefined} onResizeCapture={undefined}            />
           </div>
           <IconButton className="bg-black shadow-none hover:shadow-none rounded" 
+          onClick={(e) => {
+            handleSearch(e);
+          }}
           nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
             <Icon icon="tabler:search" width="16" />
           </IconButton>
@@ -138,17 +148,17 @@ export default function DetailCorrection() {
           className=" p-0 mb-5 bg-white"
           separator={<Icon icon="iconamoon:arrow-right-2-light" />} 
           nonce={undefined} onResize={undefined} onResizeCapture={undefined}        >
-          <a href="/" className="opacity-60">
+          <Link to="/" className="opacity-60">
             Batch Data Result
-          </a>
-          <a href="/detail" className="opacity-60">
+          </Link>
+          <Link to={`/${data.lot.lotName}/detail`} className="opacity-60">
             Detail Correction
-          </a>
+          </Link>
         </Breadcrumbs>
       </div>
       <div className="w-full p-5 border-[#F9F9F9] border-2 rounded">
         <HeaderSection lot={data.lot}/>
-        <TableSection detail={data.detail} paging={data.paging} handleDisplay={handleDisplay} setHidden={setHidden} setInstId={setInstId}/>
+        <TableSection onSearch={onSearch} detail={data.detail} paging={data.paging} handleSearch={handleSearch} handleDisplay={handleDisplay} setHidden={setHidden} setInstId={setInstId}/>
       </div>
       <div className="flex justify-end mt-5">
         <Button className="ml-2 rounded bg-[#B0B0B0] shadow-none hover:shadow-none font-Montserrat normal-case" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
