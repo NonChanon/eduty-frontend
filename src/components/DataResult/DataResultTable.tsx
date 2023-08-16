@@ -1,20 +1,20 @@
 import { Icon } from "@iconify/react";
 import { dataModel } from "../../models/DataResult/DataResultModel";
 import { PagingTab } from "../commons/PagingTab";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import { pagingModel } from "../../models/commons/GlobalModels";
 import { useState } from "react";
 
 const table_head = [
-    "No.",
-    "Lot Name",
-    "Approved By",
-    "Last Update Date",
-    "Total Doc",
-    "Total Payment",
-    "Status",
-    "Action",
-  ];
+  "No.",
+  "Lot Name",
+  "Approved By",
+  "Last Update Date",
+  "Total Doc",
+  "Total Payment",
+  "Status",
+  "Action",
+];
 
 type thisModel = {
     handleDisplayPerDate: (date: string, pageNo: string) => void,
@@ -24,28 +24,26 @@ type thisModel = {
     data: dataModel[],
     paging: pagingModel
 }
-
-export const DataResultTable = (props:thisModel) => {
-
+export const DataResultTable = (props: thisModel) => {
   let navigate = useNavigate();
 
   const [active, setActive] = useState(1);
 
   const handleDisplayPerDate = (pageNo: string) => {
     props.handleDisplayPerDate(props.batchDate, pageNo);
-  }
+  };
 
-  function twClassName(type:string, arg: string){
+  function twClassName(type: string, arg: string) {
     switch (type) {
-      case 'status':
+      case "status":
         switch (arg) {
-          case 'pending':
+          case "pending":
             return "w-[80px] align-middle font-medium text-center text-xs py-2 text-white ml-2 rounded bg-[#EE9B00] font-Montserrat capitalize";
-          case 'approve':
+          case "approve":
             return "w-[80px] align-middle font-medium text-center text-xs py-2 text-white ml-2 rounded bg-[#39876D] font-Montserrat capitalize";
-          case 'wait_for_approve':
+          case "wait_for_approve":
             return "w-[80px] align-middle font-medium text-center text-xs py-2 text-white ml-2 rounded bg-[#005F73] font-Montserrat capitalize";
-          case 'invalid_data':
+          case "invalid_data":
             return "w-[80px] align-middle font-medium text-center text-xs py-2 text-white ml-2 rounded bg-[#AE2012] font-Montserrat capitalize";
           default:
             return "w-[80px] align-middle font-medium text-center text-xs py-2 text-white ml-2 rounded bg-black font-Montserrat capitalize";
@@ -54,7 +52,6 @@ export const DataResultTable = (props:thisModel) => {
         break;
     }
   }
-
     return (
         <div className="w-full p-5 border-[#F9F9F9] border-2 rounded">
             <span className="text-[14px]">Batch Date : {props.batchDate}</span>

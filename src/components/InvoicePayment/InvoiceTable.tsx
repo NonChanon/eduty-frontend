@@ -5,49 +5,48 @@ import { Icon } from "@iconify/react";
 import { useState } from "react";
 
 const table_head = [
-    "No.",
-    "Lot Name",
-    "Total Payment",
-    "Payment Datetime",
-    "Payment Status",
-    "Expire Date",
-    "Ref1",
-    "Ref2",
-    "QR Payment",
-    "Slip Payment"
-  ];
+  "No.",
+  "Lot Name",
+  "Total Payment",
+  "Payment Datetime",
+  "Payment Status",
+  "Expire Date",
+  "Ref1",
+  "Ref2",
+  "QR Payment",
+  "Slip Payment",
+];
 
 type thisModel = {
-    handleDisplayPerDate: (date: string, pageNo: string) => void,
-    batchDate: string,
-    data: dataModel[],
-    paging: pagingModel
-}
+  handleDisplayPerDate: (date: string, pageNo: string) => void;
+  batchDate: string;
+  data: dataModel[];
+  paging: pagingModel;
+};
 
-export const InvoiceTable = (props:thisModel) => {
+export const InvoiceTable = (props: thisModel) => {
 
   const [active, setActive] = useState(1);
-
+  
   const handleDisplayPerDate = (pageNo: string) => {
     props.handleDisplayPerDate(props.batchDate, pageNo);
-  }
+  };
 
-  function twClassName(type:string, arg: string){
+  function twClassName(type: string, arg: string) {
     switch (type) {
-      case 'status':
+      case "status":
         switch (arg) {
-          case 'N':
-            return "w-[80px] align-middle font-medium text-center text-xs py-2 text-white ml-2 rounded bg-[#EE9B00] font-Montserrat capitalize";
-          case 'Y':
-            return "w-[80px] align-middle font-medium text-center text-xs py-2 text-white ml-2 rounded bg-[#39876D] font-Montserrat capitalize";
+          case "N":
+            return "w-[80px] align-middle font-medium text-center text-xs py-2 text-white rounded bg-[#EE9B00] font-Montserrat capitalize";
+          case "Y":
+            return "w-[80px] align-middle font-medium text-center text-xs py-2 text-white rounded bg-[#39876D] font-Montserrat capitalize";
           default:
-            return "w-[80px] align-middle font-medium text-center text-xs py-2 text-white ml-2 rounded bg-black font-Montserrat capitalize";
+            return "w-[80px] align-middle font-medium text-center text-xs py-2 text-white rounded bg-black font-Montserrat capitalize";
         }
       default:
         break;
     }
   }
-
     return (
         <div className="w-full p-5 border-[#F9F9F9] border-2 rounded">
             <span className="text-[14px]">Batch Date : {props.batchDate}</span>
