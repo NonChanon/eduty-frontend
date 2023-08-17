@@ -5,12 +5,11 @@ import {
     Input,
   } from "@material-tailwind/react";
   import { Icon } from "@iconify/react";
-  import Datepicker from "react-tailwindcss-datepicker";
   import { useEffect, useState } from "react";
   import { useToggle } from "../hooks/useToggle";
   import EditDetail from "./EditDetail";
   import { HeaderSection } from "../components/ReceiptAS9Detail/HeaderSection";
-  import { display } from "../services/ReceiptAS9Detail/ReceiptAS9DetailService";
+  import { display, search } from "../services/ReceiptAS9Detail/ReceiptAS9DetailService";
   import { Link, useLocation } from "react-router-dom";
   import { responseModel } from "../models/ReceiptAS9Detail/ReceiptAS9DetailModel";
   import { TableSection } from "../components/ReceiptAS9Detail/TableSection";
@@ -19,11 +18,6 @@ import {
   
     const location = useLocation();
     const lotName:string = location.pathname.split('/')[2];
-  
-    const [value, setValue] = useState({
-      startDate: null,
-      endDate: null,
-    });
   
     const [data, setData] = useState<responseModel>({
       message: "",
@@ -70,13 +64,28 @@ import {
     });
   
     const [currentPage, setCurrentPage] = useState<string>("1");
-  
     const [instId, setInstId] = useState("");
+    const [onSearch, setOnSearch] = useState(false);
+    const [searchTaxId, setSearchTaxId] = useState({
+      partyTaxRegistration: ""
+    });
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTaxId({...searchTaxId, [e.target.name]: e.target.value})
+    }
   
-    const handleValueChange = (newValue: any) => {
-      console.log("newValue:", newValue);
-      setValue(newValue);
-    };
+    const handleSearch = (e:React.MouseEvent<HTMLButtonElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>, pageNo: string) => {
+      e.preventDefault();
+      console.log("Search Function!");
+      if (searchTaxId.partyTaxRegistration === "") {
+        return handleDisplay(currentPage);
+      }
+      search(lotName, searchTaxId.partyTaxRegistration, pageNo).then((res) => {
+        setCurrentPage(pageNo);
+        setData(res);
+        setOnSearch(true);
+      });
+    }
   
     const { status: isOpen, toggleStatus: setIsOpen } = useToggle();
   
@@ -112,21 +121,20 @@ import {
         <div className="md:flex md:justify-between md:items-center">
           <span className="font-[600] text-lg">Receipt & AS9 Detail</span>
           <div className="flex items-center">
-            <Datepicker
-              showShortcuts={true}
-              useRange={false}
-              asSingle={true}
-              value={value}
-              displayFormat={"DD/MM/YYYY"}
-              onChange={handleValueChange}
-              inputClassName="w-60 h-10 px-3 py-2 border-[1px] rounded border-blue-gray-200 text-sm"
-              containerClassName="relative text-gray-700 w-60"
-            />
             <div className="w-60 mx-3 flex items-center">
               <Input
-                label="Lot Name"
+                name="partyTaxRegistration"
+                label="Tax ID"
                 color="black"
                 className="!rounded"
+                onChange={(e) => {
+                  handleSearchChange(e);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSearch(e, "1");
+                  }
+                }}
                 containerProps={{
                   className: "",
                 }}
@@ -134,8 +142,12 @@ import {
                   className: "!text-gray-400 peer-focus:!text-black",
                 }} nonce={undefined} onResize={undefined} onResizeCapture={undefined}            />
             </div>
-            <IconButton className="bg-black shadow-none hover:shadow-none rounded" 
-            nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+            <IconButton 
+              className="bg-black shadow-none hover:shadow-none rounded" 
+              onClick={(e) => {
+                handleSearch(e, "1");
+              }}
+              nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
               <Icon icon="tabler:search" width="16" />
             </IconButton>
           </div>
@@ -155,7 +167,7 @@ import {
         </div>
         <div className="w-full p-5 border-[#F9F9F9] border-2 rounded">
           <HeaderSection lot={data.lot}/>
-          <TableSection detail={data.detail} paging={data.paging} handleDisplay={handleDisplay} setHidden={setHidden} setInstId={setInstId}/>
+          <TableSection onSearch={onSearch} handleSearch={handleSearch} detail={data.detail} paging={data.paging} handleDisplay={handleDisplay} setHidden={setHidden} setInstId={setInstId}/>
         </div>
         <div className="flex justify-end mt-5">
           <Button className="ml-2 rounded bg-[#B0B0B0] shadow-none hover:shadow-none font-Montserrat normal-case" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>

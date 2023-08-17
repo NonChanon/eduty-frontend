@@ -3,12 +3,13 @@ import { PagingTab } from "../commons/PagingTab";
 import { detailModel } from "../../models/DetailCorrection/DetailCorrectionModel";
 import { pagingModel } from "../../models/commons/GlobalModels";
 import { useEffect, useState } from "react";
+import { stringToNumber } from "../../utils/ConvertDataType";
 
 type thisModel = {
     detail: detailModel[],
     paging: pagingModel,
     onSearch: boolean,
-    handleSearch: (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
+    handleSearch: (e:React.MouseEvent<HTMLButtonElement, MouseEvent>, pageNo: string) => void,
     handleDisplay: (pageNo: string) => void,
     setHidden: () => void,
     setInstId: (instId: string) => void,
@@ -68,7 +69,7 @@ export const TableSection = (props:thisModel) => {
               ))}
             </tbody>
           </table>
-          <PagingTab totalPage={props.paging.totalPage as unknown as number} onSearch={props.onSearch} handleSearch={props.handleSearch} handlePaging={props.handleDisplay} active={active} setActive={setActive}/>
+          <PagingTab totalPage={stringToNumber(props.paging.totalPage)} onSearch={props.onSearch} handleSearch={props.handleSearch} handlePaging={props.handleDisplay} active={active} setActive={setActive}/>
         </div>
     );
 }

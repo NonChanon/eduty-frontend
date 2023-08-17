@@ -101,7 +101,7 @@ export default function DataResult() {
     });
   }
 
-  const handleSearch = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSearch = (e:React.MouseEvent<HTMLButtonElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>, pageNo: string) => {
     e.preventDefault();
     console.log("Search Function!");
     if (searchLotName.lotName === "" || searchLotName.lotName === null) {
@@ -111,7 +111,7 @@ export default function DataResult() {
         });
         return;
     }
-    search(searchLotName.lotName, "1").then((res) => {
+    search(searchLotName.lotName, pageNo).then((res) => {
       setData({
         ...data,
         data: res.data
@@ -175,21 +175,24 @@ export default function DataResult() {
               onChange={(e) => {
                 handleSearchChange(e);
               }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSearch(e, "1");
+                }
+              }}
               containerProps={{
                 className: "",
               }}
               labelProps={{
                 className: "!text-gray-400 peer-focus:!text-black",
               }} 
-              nonce={undefined}
-              onResize={undefined} 
-              onResizeCapture={undefined}            
+              nonce={undefined} onResize={undefined} onResizeCapture={undefined}            
             />
           </div>
           <IconButton
             className="bg-black shadow-none hover:shadow-none rounded" 
             onClick={(e) => {
-              handleSearch(e);
+              handleSearch(e, "1");
             }}
             nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
             <Icon icon="tabler:search" width="16" />
@@ -200,7 +203,6 @@ export default function DataResult() {
       <FilterTab filters={allFilters} updateFilter={dataResultDisplayByFilter} amount={data.amount}/>
       {
         Object.keys(data.data).map((batchDate:string) => {
-          
           return (
             <DataResultTable key={batchDate} onSearch={onSearch} handleSearch={handleSearch} handleDisplayPerDate={handleDisplayPerDate} batchDate={batchDate} data={data.data[batchDate].data} paging={data.data[batchDate].paging}/>
           );
