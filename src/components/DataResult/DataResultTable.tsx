@@ -4,6 +4,7 @@ import { PagingTab } from "../commons/PagingTab";
 import { useNavigate } from "react-router-dom";
 import { pagingModel } from "../../models/commons/GlobalModels";
 import { useState } from "react";
+import { stringToNumber } from "../../utils/ConvertDataType";
 
 const table_head = [
   "No.",
@@ -19,7 +20,7 @@ const table_head = [
 type thisModel = {
     handleDisplayPerDate: (date: string, pageNo: string) => void,
     onSearch: boolean,
-    handleSearch: (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
+    handleSearch: (e:React.MouseEvent<HTMLButtonElement, MouseEvent>, pageNo: string) => void,
     batchDate: string,
     data: dataModel[],
     paging: pagingModel
@@ -54,7 +55,7 @@ export const DataResultTable = (props: thisModel) => {
   }
     return (
         <div className="w-full p-5 border-[#F9F9F9] border-2 rounded">
-            <span className="text-[14px]">Batch Date : {props.batchDate}</span>
+            <span className="text-[14px]">{props.batchDate === "Search Result" ? "Search Result" : `Batch Date : ${props.batchDate}`}</span>
             <div className="relative overflow-x-auto mt-5">
               <table className="w-full text-center border-b border-[#DFDFDF] text-xs">
                 <thead className="text-[#818181] border-b border-[#DFDFDF]">
@@ -95,7 +96,7 @@ export const DataResultTable = (props: thisModel) => {
                   ))}
                 </tbody>
               </table>
-              <PagingTab handleSearch={props.handleSearch} onSearch={props.onSearch} handlePaging={handleDisplayPerDate} totalPage={props.paging.totalPage as unknown as number} active={active} setActive={setActive}/>
+              <PagingTab handleSearch={props.handleSearch} onSearch={props.onSearch} handlePaging={handleDisplayPerDate} totalPage={stringToNumber(props.paging.totalPage)} active={active} setActive={setActive}/>
             </div>
         </div>
     );

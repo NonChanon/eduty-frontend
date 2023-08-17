@@ -1,9 +1,10 @@
 import { Icon } from "@iconify/react";
 import { Button, IconButton } from "@material-tailwind/react";
+import { numberToString } from "../../utils/ConvertDataType";
 
 type thisModel = {
     handlePaging: (pageNo: string) => void,
-    handleSearch: (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
+    handleSearch: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, pageNo: string) => void,
     onSearch: boolean,
     totalPage: number,
     active: number,
@@ -20,18 +21,18 @@ export const PagingTab = (props:thisModel) => {
         : "text-black hover:bg-gray-100",
     onClick: (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         props.setActive(index);
-        props.onSearch === true ? props.handleSearch(e) : props.handlePaging(index as unknown as string)
+        props.onSearch === true ? props.handleSearch(e, numberToString(index)) : props.handlePaging(index as unknown as string)
     },
     } as any);
     const next = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (props.active === props.totalPage) return;
         props.setActive(props.active + 1);
-        props.onSearch === true ? props.handleSearch(e) : props.handlePaging((props.active + 1) as unknown as string)
+        props.onSearch === true ? props.handleSearch(e, numberToString(props.active + 1)) : props.handlePaging((props.active + 1) as unknown as string)
     };
     const prev = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (props.active === 1) return;
         props.setActive(props.active - 1);
-        props.onSearch === true ? props.handleSearch(e) : props.handlePaging((props.active - 1) as unknown as string)
+        props.onSearch === true ? props.handleSearch(e, numberToString(props.active + 1)) : props.handlePaging((props.active - 1) as unknown as string)
     };
     const renderPageNumber = (totalPage: number) => {
         let list:any[] = [];

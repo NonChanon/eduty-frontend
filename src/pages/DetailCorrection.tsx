@@ -70,14 +70,14 @@ export default function DetailCorrection() {
     setSearchTaxId({...searchTaxId, [e.target.name]: e.target.value})
   }
 
-  const handleSearch = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSearch = (e:React.MouseEvent<HTMLButtonElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>, pageNo: string) => {
     e.preventDefault();
     console.log("Search Function!");
     if (searchTaxId.partyTaxRegistration === "") {
       return handleDisplay(currentPage);
     }
-    search(lotName, searchTaxId.partyTaxRegistration, "1").then((res) => {
-      setCurrentPage("1");
+    search(lotName, searchTaxId.partyTaxRegistration, pageNo).then((res) => {
+      setCurrentPage(pageNo);
       setData(res);
       setOnSearch(true);
     });
@@ -127,6 +127,11 @@ export default function DetailCorrection() {
               onChange={(e) => {
                 handleSearchChange(e);
               }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSearch(e, "1");
+                }
+              }}
               containerProps={{
                 className: "",
               }}
@@ -134,11 +139,12 @@ export default function DetailCorrection() {
                 className: "!text-gray-400 peer-focus:!text-black",
               }} nonce={undefined} onResize={undefined} onResizeCapture={undefined}            />
           </div>
-          <IconButton className="bg-black shadow-none hover:shadow-none rounded" 
-          onClick={(e) => {
-            handleSearch(e);
-          }}
-          nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+          <IconButton 
+            className="bg-black shadow-none hover:shadow-none rounded" 
+            onClick={(e) => {
+              handleSearch(e, "1");
+            }}
+            nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
             <Icon icon="tabler:search" width="16" />
           </IconButton>
         </div>

@@ -7,6 +7,8 @@ import { useState } from "react";
 type thisModel = {
     detail: detailModel[],
     paging: pagingModel,
+    onSearch: boolean,
+    handleSearch: (e:React.MouseEvent<HTMLButtonElement, MouseEvent>, pageNo: string) => void,
     handleDisplay: (pageNo: string) => void,
     setHidden: () => void,
     setInstId: (instId: string) => void
@@ -89,7 +91,7 @@ export const TableSection = (props:thisModel) => {
               ))}
             </tbody>
           </table>
-          <PagingTab totalPage={props.paging.totalPage as unknown as number} handlePaging={props.handleDisplay} active={active} setActive={setActive}/>
+          <PagingTab onSearch={props.onSearch} handleSearch={props.handleSearch} totalPage={props.paging.totalPage as unknown as number} handlePaging={props.handleDisplay} active={active} setActive={setActive}/>
         </div>
     );
 }
