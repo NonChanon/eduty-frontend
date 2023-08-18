@@ -17,6 +17,8 @@ const table_head = [
 
 type thisModel = {
     handleDisplayPerDate: (date: string, pageNo: string) => void,
+    onSearch: boolean,
+    handleSearch: (e:React.MouseEvent<HTMLButtonElement, MouseEvent>, pageNo: string) => void
     batchDate: string,
     data: dataModel[],
     paging: pagingModel
@@ -34,7 +36,7 @@ export const ReceiptAS9Table = (props:thisModel) => {
 
     return (
         <div className="w-full p-5 border-[#F9F9F9] border-2 rounded">
-            <span className="text-[14px]">Batch Date : {props.batchDate}</span>
+            <span className="text-[14px]">{props.batchDate === "Search Result" ? "Search Result" : `Batch Date : ${props.batchDate}`}</span>
             <div className="relative overflow-x-auto mt-5">
               <table className="w-full text-center border-b border-[#DFDFDF] text-xs">
                 <thead className="text-[#818181] border-b border-[#DFDFDF]">
@@ -67,7 +69,7 @@ export const ReceiptAS9Table = (props:thisModel) => {
                   ))}
                 </tbody>
               </table>
-              <PagingTab handlePaging={handleDisplayPerDate} totalPage={props.paging.totalPage as unknown as number} active={active} setActive={setActive}/>
+              <PagingTab onSearch={props.onSearch} handleSearch={props.handleSearch} handlePaging={handleDisplayPerDate} totalPage={props.paging.totalPage as unknown as number} active={active} setActive={setActive}/>
             </div>
         </div>
     );
