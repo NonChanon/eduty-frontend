@@ -27,6 +27,7 @@ export default function DetailCorrection() {
     message: "",
     status: "",
     lot: {
+      lotId: "",
       lotName: "",
       sendRdStatus: "",
       rdResponseMessage: "",
