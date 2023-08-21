@@ -1,6 +1,7 @@
 import { pagingModel } from "../commons/GlobalModels"
 
 export type lotModel = {
+    lotId: string,
     lotName: string,
     sendRdStatus: string,
     rdResponseMessage: string,
