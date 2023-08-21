@@ -1,11 +1,11 @@
 import { Input } from "@material-tailwind/react";
 
 type InputBoxProps = {
-  title: string,
-  name: string,
-  width: string,
-  placeholder: string,
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  title: string;
+  name: string;
+  width: string;
+  placeholder: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function InputBox(props: InputBoxProps) {
@@ -21,7 +21,11 @@ export default function InputBox(props: InputBoxProps) {
         labelProps={{
           className: "hidden",
         }}
-        containerProps={{ className: `!w-[${props.width}%] !min-w-0` }}
+        containerProps={
+          props.width === "60"
+            ? { className: "!w-[60%] !min-w-0" }
+            : { className: "!w-[30%] !min-w-0" }
+        }
         nonce={undefined}
         onResize={undefined}
         onResizeCapture={undefined}
