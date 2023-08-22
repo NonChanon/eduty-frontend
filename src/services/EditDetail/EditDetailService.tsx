@@ -1,5 +1,5 @@
 import { api } from "../axios";
-import { responseModel, updatePartyModel } from "../../models/EditDetail/EditDetailModel";
+import { responseModel, updatePayerModel } from "../../models/EditDetail/EditDetailModel";
 
 export const display = async (instId: string) => {
   let { data } = await api.get<responseModel>(`/party/display`, {
@@ -11,10 +11,10 @@ export const display = async (instId: string) => {
   return data;
 }
 
-export const update = async (instId: string, body: updatePartyModel) => {
-  let { data } = await api.put(`/party/update`, body, {
+export const update = async (lotId: string, body: updatePayerModel) => {
+  let { data } = await api.put(`/payer/update`, body, {
     params: {
-      instId: instId
+      lotId: lotId
     }
   });
   console.log(data);

@@ -5,7 +5,7 @@ import { useToggle } from "../hooks/useToggle";
 
 export const Navbar = () => {
   const Links = [
-    { name: "Batch Data Result", path: "/" },
+    { name: "Batch Data Result", path: "/home" },
     { name: "Invoice Payment", path: "/invoice" },
     { name: "Reciept & AS9", path: "/receipt" },
   ];
@@ -24,7 +24,7 @@ export const Navbar = () => {
           }`}
         >
           {Links.map((link) => (
-            <li className="h-[50px]">
+            <li key={link.path} className="h-[50px]">
               <NavLink
                 to={link.path}
                 className={({ isActive }) =>

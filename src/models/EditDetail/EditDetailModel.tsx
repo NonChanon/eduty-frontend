@@ -8,12 +8,9 @@ export type partyModel = {
     surchargeAmount: string,
     fineAmount: string,
     totalAmount: string,
-    partyTaxRegistrationId: string,
     titleName: string,
     name: string,
     surname: string,
-    branchNo: string,
-    branchType: string,
     buildingName: string,
     roomNo: string,
     floorNo: string,
@@ -31,14 +28,15 @@ export type partyModel = {
 }
 
 export type payerModel = {
+    lotId: string,
     payerTaxRegistrationId: string,
     branchNo: string,
     branchType: string,
     relationship: string
 }
 
-export type updatePartyModel = {
-    partyTaxRegistrationId: string,
+export type updatePayerModel = {
+    payerTaxRegistrationId: string,
     branchType: string
 }
 
