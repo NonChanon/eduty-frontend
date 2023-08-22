@@ -19,7 +19,7 @@ export const TableSection = (props:thisModel) => {
     const table_head = [
         "No.",
         "InstInfo ID",
-        "Tax Player ID",
+        "Party Tax ID",
         "Name",
         "Duty Amount",
         "Surcharge Amount",

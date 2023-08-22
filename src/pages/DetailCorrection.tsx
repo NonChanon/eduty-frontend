@@ -122,7 +122,7 @@ export default function DetailCorrection() {
           <div className="w-60 mx-3 flex items-center">
             <Input
               name="partyTaxRegistration"
-              label="Tax ID"
+              label="Party Tax ID"
               color="black"
               className="!rounded"
               onChange={(e) => {
@@ -154,7 +154,7 @@ export default function DetailCorrection() {
         <Breadcrumbs
           className=" p-0 mb-5 bg-white"
           separator={<Icon icon="iconamoon:arrow-right-2-light" />} 
-          nonce={undefined} onResize={undefined} onResizeCapture={undefined}        >
+          nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
           <Link to="/" className="opacity-60">
             Batch Data Result
           </Link>
