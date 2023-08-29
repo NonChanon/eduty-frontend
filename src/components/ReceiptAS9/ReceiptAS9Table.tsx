@@ -10,7 +10,10 @@ const table_head = [
     "Lot Name",
     "API Ref No.",
     "Total Doc",
-    "Total Payment",
+    "Total Duty",
+    "Total Fine",
+    "Total Surcharge",
+    "Total Amount",
     "Payment Datetime",
     "Action"
   ];
@@ -53,7 +56,10 @@ export const ReceiptAS9Table = (props:thisModel) => {
                       <td className="px-6 py-4">{lot.lotName}</td>
                       <td className="px-6 py-4">{lot.apiRefNo}</td>
                       <td className="px-6 py-4">{lot.totalDoc}</td>
-                      <td className="px-6 py-4">{lot.totalPayment}</td>
+                      <td className="px-6 py-4">{lot.totalDuty}</td>
+                      <td className="px-6 py-4">{lot.totalFine}</td>
+                      <td className="px-6 py-4">{lot.totalSurcharge}</td>
+                      <td className="px-6 py-4">{lot.totalAmount}</td>
                       <td className="px-6 py-4">{lot.paymentDatetime}</td>
                       <td className="px-6 py-4 flex justify-center items-center">
                         <Icon

@@ -17,7 +17,10 @@ export type dataModel = {
     apiRefNo: string,
     paymentDatetime: string,
     totalDoc: string,
-    totalPayment: string,
+    totalDuty: string,
+    totalFine: string,
+    totalSurcharge: string,
+    totalAmount: string,
 }
 
 export type responseModel = {
