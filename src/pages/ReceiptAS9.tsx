@@ -7,6 +7,7 @@ import {
   import { display, displayPerDate, search } from "../services/ReceiptAS9/ReceiptAS9Service";
   import { responseModel } from "../models/ReceiptAS9/ReceiptAS9Model";
   import { ReceiptAS9Table } from "../components/ReceiptAS9/ReceiptAS9Table";
+import { DataNotFound } from "../components/DataNotFound";
   
   export default function ReceiptAS9() {
   
@@ -26,7 +27,10 @@ import {
                 apiRefNo: "",
                 paymentDatetime: "",
                 totalDoc: "",
-                totalPayment: "",
+                totalDuty: "",
+                totalFine: "",
+                totalSurcharge: "",
+                totalAmount: "",
               },],
               paging: {
                 pageNo: "",
@@ -133,7 +137,7 @@ import {
             </IconButton>
           </div>
         </div>
-        {
+        {data.status === "02" ? <DataNotFound /> : 
           Object.keys(data.data).map((batchDate:string) => {
             return (
               <ReceiptAS9Table key={batchDate} onSearch={onSearch} handleSearch={handleSearch} handleDisplayPerDate={handleDisplayPerDate} batchDate={batchDate} data={data.data[batchDate].data} paging={data.data[batchDate].paging}/>
