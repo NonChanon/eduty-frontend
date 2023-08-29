@@ -1,10 +1,11 @@
 import { api } from "../axios";
 import { responseModel, updatePayerModel } from "../../models/EditDetail/EditDetailModel";
 
-export const display = async (instId: string) => {
+export const display = async (instId: string, lotId: string) => {
   let { data } = await api.get<responseModel>(`/party/display`, {
       params: {
-        instId: instId
+        instId: instId,
+        lotId: lotId
       },
     });
   console.log(data);

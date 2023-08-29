@@ -7,8 +7,7 @@ export type lotModel = {
     rdResponseMessage: string,
     transactionDate: string,
     totalDuty: string,
-    totalSurcharge: string,
-    totalFine: string,
+    totalDupDutyAmount: string,
     totalPayment: string,
     totalDoc: string,
 }
@@ -19,8 +18,7 @@ export type detailModel = {
     name: string,
     surname: string,
     dutyAmount: string,
-    surchargeAmount: string,
-    fineAmount: string,
+    dupDutyAmount: string,
     totalAmount: string,
 }
 
@@ -30,4 +28,14 @@ export type responseModel = {
     lot: lotModel,
     detail: detailModel[],
     paging: pagingModel
+}
+
+export type updateLotResponseModel = {
+    message: string,
+    status: string
+}
+
+export type submitToRdResponseModel = {
+    message: string,
+    status: string,
 }

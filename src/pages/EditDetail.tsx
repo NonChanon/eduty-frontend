@@ -9,6 +9,7 @@ import { display, update } from "../services/EditDetail/EditDetailService";
 
 type thisModel = {
   instId: string;
+  lotId: string;
   setHidden: () => void;
 };
 
@@ -23,8 +24,7 @@ export default function EditDetail(props: thisModel) {
       effectiveDate: "",
       expireDate: "",
       dutyAmount: "",
-      surchargeAmount: "",
-      fineAmount: "",
+      dupDutyAmount: "",
       totalAmount: "",
       titleName: "",
       name: "",
@@ -67,7 +67,7 @@ export default function EditDetail(props: thisModel) {
 
   useEffect(() => {
     console.log("useEffect Trigger");
-    display(props.instId).then((res) => {
+    display(props.instId, props.lotId).then((res) => {
       setData(res);
       setUpdateBody({
         payerTaxRegistrationId: res.payer.payerTaxRegistrationId,
@@ -118,8 +118,7 @@ export default function EditDetail(props: thisModel) {
             <span className="font-bold">Payment Detail</span>
             <div className="grid grid-cols-3 gap-2 pt-4">
               <InputBox name="dutyAmount" onChange={handleOnchange} title="Duty Amount" width="60" placeholder={data.party.dutyAmount} />
-              <InputBox name="surchargeAmount" onChange={handleOnchange} title="Surcharge Amount" width="60" placeholder={data.party.surchargeAmount} />
-              <InputBox name="fineAmount" onChange={handleOnchange} title="Fine Amount" width="60" placeholder={data.party.fineAmount} />
+              <InputBox name="dupDutyAmount" onChange={handleOnchange} title="Dup Duty Amount" width="60" placeholder={data.party.dupDutyAmount} />
               <InputBox name="totalAmount" onChange={handleOnchange} title="Total Amount" width="60" placeholder={data.party.totalAmount} />
             </div>
           </div>

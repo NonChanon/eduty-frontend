@@ -9,14 +9,16 @@ import { useEffect, useState } from "react";
 import { useToggle } from "../hooks/useToggle";
 import EditDetail from "./EditDetail";
 import { HeaderSection } from "../components/DetailCorrection/HeaderSection";
-import { display, search } from "../services/DetailCorrection/DetailCorrectionService";
-import { Link, useLocation } from "react-router-dom";
+import { deny, display, search, submitToRd } from "../services/DetailCorrection/DetailCorrectionService";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { responseModel } from "../models/DetailCorrection/DetailCorrectionModel";
 import { TableSection } from "../components/DetailCorrection/TableSection";
+import { DataNotFound } from "../components/DataNotFound";
 
 export default function DetailCorrection() {
 
   const location = useLocation();
+  let navigate = useNavigate();
   const lotName:string = location.pathname.split('/')[1];
 
   const [searchTaxId, setSearchTaxId] = useState({
@@ -33,8 +35,7 @@ export default function DetailCorrection() {
       rdResponseMessage: "",
       transactionDate: "",
       totalDuty: "",
-      totalSurcharge: "",
-      totalFine: "",
+      totalDupDutyAmount: "",
       totalPayment: "",
       totalDoc: "",
     },
@@ -44,8 +45,7 @@ export default function DetailCorrection() {
       name: "",
       surname: "",
       dutyAmount: "",
-      surchargeAmount: "",
-      fineAmount: "",
+      dupDutyAmount: "",
       totalAmount: "",
     },],
     paging: {
@@ -165,17 +165,31 @@ export default function DetailCorrection() {
       </div>
       <div className="w-full p-5 border-[#F9F9F9] border-2 rounded">
         <HeaderSection lot={data.lot}/>
-        <TableSection onSearch={onSearch} detail={data.detail} paging={data.paging} handleSearch={handleSearch} handleDisplay={handleDisplay} setHidden={setHidden} setInstId={setInstId}/>
+        {data.status === "02" ? <DataNotFound /> : 
+          <TableSection onSearch={onSearch} detail={data.detail} paging={data.paging} handleSearch={handleSearch} handleDisplay={handleDisplay} setHidden={setHidden} setInstId={setInstId}/>
+        }
       </div>
-      <div className="flex justify-end mt-5">
-        <Button className="ml-2 rounded bg-[#B0B0B0] shadow-none hover:shadow-none font-Montserrat normal-case" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+      {data.status !== "02" && <div className="flex justify-end mt-5">
+        <Button className="ml-2 rounded bg-[#B0B0B0] shadow-none hover:shadow-none font-Montserrat normal-case" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+          onClick={(e) => {
+            e.preventDefault();
+            deny(data.lot.lotId);
+            navigate(`/home`);
+          }}
+        >
           Denied
         </Button>
-        <Button className="ml-2 rounded bg-[#000000] shadow-none hover:shadow-none font-Montserrat normal-case" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+        <Button className="ml-2 rounded bg-[#000000] shadow-none hover:shadow-none font-Montserrat normal-case" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+          onClick={(e) => {
+            e.preventDefault();
+            submitToRd(data.lot.lotId);
+            navigate(`/home`);
+          }}        
+        >
           Submit
         </Button>
-      </div>
-      {isOpen && <EditDetail setHidden={setHidden} instId={instId}/>}
+      </div>}
+      {isOpen && <EditDetail setHidden={setHidden} instId={instId} lotId={data.lot.lotId}/>}
     </div>
   );
 }

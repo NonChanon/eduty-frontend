@@ -19,6 +19,8 @@ export const FilterTab = (props:thisModel) => {
             return "text-[13px] h-10 mx-1 w-36 text-[#005F73]"
           case 'invalid_data':
             return "text-[13px] h-10 mx-1 w-36 text-[#AE2012]"
+          case 'cancel':
+            return "text-[13px] h-10 mx-1 w-36 text-gray-600"
           case 'n':
             return "text-[13px] h-10 mx-1 w-36 text-[#EE9B00]"
           case 'y':
@@ -40,6 +42,8 @@ export const FilterTab = (props:thisModel) => {
             return "bg-[#005F73] text-white px-[10px] h-6 rounded flex items-center"
           case 'invalid_data':
             return "bg-[#AE2012] text-white px-[10px] h-6 rounded flex items-center"
+          case 'cancel':
+            return "bg-gray-600 text-white px-[10px] h-6 rounded flex items-center"
           default:
             return "bg-black text-white px-[10px] h-6 rounded flex items-center";
         }

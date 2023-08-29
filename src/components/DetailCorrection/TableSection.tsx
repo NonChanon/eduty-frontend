@@ -22,8 +22,7 @@ export const TableSection = (props:thisModel) => {
         "Party Tax ID",
         "Name",
         "Duty Amount",
-        "Surcharge Amount",
-        "Fine Amount",
+        "Dup Duty Amount",
         "Total Amount",
         "Action",
       ];
@@ -51,8 +50,7 @@ export const TableSection = (props:thisModel) => {
                   <td className="px-6 py-4">{row.partyTaxRegistrationId}</td>
                   <td className="px-6 py-4">{row.name + " " + row.surname}</td>
                   <td className="px-6 py-4">{row.dutyAmount}</td>
-                  <td className="px-6 py-4">{row.surchargeAmount}</td>
-                  <td className="px-6 py-4">{row.fineAmount}</td>
+                  <td className="px-6 py-4">{row.dupDutyAmount}</td>
                   <td className="px-6 py-4">{row.totalAmount}</td>
                   <td className="px-6 py-4 flex justify-center items-center">
                     <Icon

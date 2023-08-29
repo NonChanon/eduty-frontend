@@ -46,6 +46,8 @@ export const DataResultTable = (props: thisModel) => {
             return "w-[80px] align-middle font-medium text-center text-xs py-2 text-white ml-2 rounded bg-[#005F73] font-Montserrat capitalize";
           case "invalid_data":
             return "w-[80px] align-middle font-medium text-center text-xs py-2 text-white ml-2 rounded bg-[#AE2012] font-Montserrat capitalize";
+          case "cancel":
+            return "w-[80px] align-middle font-medium text-center text-xs py-2 text-white ml-2 rounded bg-gray-600 font-Montserrat capitalize";
           default:
             return "w-[80px] align-middle font-medium text-center text-xs py-2 text-white ml-2 rounded bg-black font-Montserrat capitalize";
         }

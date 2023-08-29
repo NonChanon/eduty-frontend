@@ -19,7 +19,7 @@ export type dataModel = {
     rdResponseMessage: string,
     transactionDate: string,
     totalDuty: string,
-    totalSurcharge: string,
+    totalDupDutyAmount: string,
     totalPayment: string,
     totalDoc: string,
     approveBy: string,
