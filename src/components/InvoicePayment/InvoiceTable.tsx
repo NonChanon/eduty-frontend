@@ -8,6 +8,9 @@ import { stringToNumber } from "../../utils/ConvertDataType";
 const table_head = [
   "No.",
   "Lot Name",
+  "Duty",
+  "Fine",
+  "Surcharge",
   "Total Payment",
   "Payment Datetime",
   "Payment Status",
@@ -67,7 +70,10 @@ export const InvoiceTable = (props: thisModel) => {
                     <tr key={i}>
                       <td className="px-6 py-4">{i + 1}</td>
                       <td className="px-6 py-4">{lot.lotName}</td>
-                      <td className="px-6 py-4">{lot.totalPayment}</td>
+                      <td className="px-6 py-4">{lot.totalDuty}</td>
+                      <td className="px-6 py-4">{lot.totalFine}</td>
+                      <td className="px-6 py-4">{lot.totalSurcharge}</td>
+                      <td className="px-6 py-4">{lot.totalAmount}</td>
                       <td className="px-6 py-4">{lot.paymentDatetime}</td>
                       <td className="px-6 py-4">
                         <button

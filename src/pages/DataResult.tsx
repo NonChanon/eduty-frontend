@@ -3,19 +3,14 @@ import {
   Input,
 } from "@material-tailwind/react";
 import { Icon } from "@iconify/react";
-import Datepicker from "react-tailwindcss-datepicker";
 import { useEffect, useState } from "react";
 import { FilterTab } from "../components/commons/FilterTab";
 import { display, displayPerDate, search } from "../services/DataResult/DataResultService";
 import { responseModel } from "../models/DataResult/DataResultModel";
 import { DataResultTable } from "../components/DataResult/DataResultTable";
+import { DataNotFound } from "../components/DataNotFound";
 
 export default function DataResult() {
-
-  // const [value, setValue] = useState({
-  //   startDate: null,
-  //   endDate: null,
-  // });
 
   const [searchLotName, setSearchLotName] = useState({
     lotName: ""
@@ -37,7 +32,7 @@ export default function DataResult() {
               rdResponseMessage: "",
               transactionDate: "",
               totalDuty: "",
-              totalSurcharge: "",
+              totalDupDutyAmount: "",
               totalPayment: "",
               totalDoc: "",
               approveBy: ""
@@ -90,6 +85,11 @@ export default function DataResult() {
       label: "Invalid Data",
       value: "countInvalidData",
       asParam: "invalid_data"
+    },
+    {
+      label: "Cancel",
+      value: "countCancel",
+      asParam: "cancel"
     }
   ];
 
@@ -114,7 +114,9 @@ export default function DataResult() {
     search(searchLotName.lotName, pageNo).then((res) => {
       setData({
         ...data,
-        data: res.data
+          data: res.data,
+          message: res.message,
+          status: res.status
       });
       setOnSearch(true);
     });
@@ -150,22 +152,11 @@ export default function DataResult() {
   },[])
 
   console.log(data);
-
   return (
     <div className="w-full mx-auto px-5 my-[70px]">
       <div className="md:flex md:justify-between md:items-center">
         <span className="font-[600] text-lg">Batch Data Result</span>
         <div className="flex items-center">
-          {/* <Datepicker
-            showShortcuts={true}
-            useRange={false}
-            asSingle={true}
-            value={value}
-            displayFormat={"DD/MM/YYYY"}
-            onChange={handleValueChange}
-            inputClassName="w-60 h-10 px-3 py-2 border-[1px] rounded border-blue-gray-200 text-sm"
-            containerClassName="relative text-gray-700 w-60"
-          /> */}
           <div className="w-60 mx-3 flex items-center">
             <Input
               name="lotName"
@@ -201,7 +192,7 @@ export default function DataResult() {
       </div>
 
       <FilterTab filters={allFilters} updateFilter={dataResultDisplayByFilter} amount={data.amount}/>
-      {
+      {data.status === "02" ? <DataNotFound /> : 
         Object.keys(data.data).map((batchDate:string) => {
           return (
             <DataResultTable key={batchDate} onSearch={onSearch} handleSearch={handleSearch} handleDisplayPerDate={handleDisplayPerDate} batchDate={batchDate} data={data.data[batchDate].data} paging={data.data[batchDate].paging}/>

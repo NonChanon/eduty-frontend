@@ -9,6 +9,7 @@ import { FilterTab } from "../components/commons/FilterTab";
 import { display, displayPerDate, search } from "../services/InvoicePayment/InvoicePaymentService";
 import { responseModel } from "../models/InvoicePayment/InvoicePaymentModel";
 import { InvoiceTable } from "../components/InvoicePayment/InvoiceTable";
+import { DataNotFound } from "../components/DataNotFound";
   
 export default function InvoicePayment() {
     const [value, setValue] = useState({
@@ -29,7 +30,7 @@ export default function InvoicePayment() {
                 ref1: "",
                 ref2: "",
                 expireDate: "",
-                totalPayment: "",
+                totalAmount: "",
                 paymentStatus: "",
                 paymentDatetime: "",
                 qrPayment: "",
@@ -103,7 +104,9 @@ export default function InvoicePayment() {
       search(searchLotName.lotName, pageNo).then((res) => {
         setData({
           ...data,
-          data: res.data
+          data: res.data,
+          message: res.message,
+          status: res.status
         });
         setOnSearch(true);
       });
@@ -178,8 +181,7 @@ export default function InvoicePayment() {
         </div>
   
         <FilterTab filters={allFilters} updateFilter={paymentDisplayByFilter} amount={data.amount}/>
-  
-        {
+        {data.status === "02" ? <DataNotFound /> :
           Object.keys(data.data).map((batchDate:string) => {
             return (
               <InvoiceTable key={batchDate} onSearch={onSearch} handleSearch={handleSearch} handleDisplayPerDate={handleDisplayPerDate} batchDate={batchDate} data={data.data[batchDate].data} paging={data.data[batchDate].paging}/>

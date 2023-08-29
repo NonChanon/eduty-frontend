@@ -18,6 +18,8 @@ export const HeaderSection = (props:thisModel) => {
             return "ml-2 rounded bg-[#005F73] shadow-none hover:shadow-none font-Montserrat capitalize cursor-default";
           case 'invalid_data':
             return "ml-2 rounded bg-[#AE2012] shadow-none hover:shadow-none font-Montserrat capitalize cursor-default";
+          case 'cancel':
+            return "ml-2 rounded bg-gray-600 shadow-none hover:shadow-none font-Montserrat capitalize cursor-default";
           default:
             return "ml-2 rounded bg-black shadow-none hover:shadow-none font-Montserrat capitalize cursor-default";
         }
@@ -27,14 +29,13 @@ export const HeaderSection = (props:thisModel) => {
   }
     return(
         <div className="flex justify-between text-sm">
-          <div className="w-[60%] grid grid-cols-4 gap-3">
+          <div className="w-[70%] grid grid-cols-4 gap-3">
             <span>Lot Name : {props.lot.lotName}</span>
             <span>Last Update: {props.lot.transactionDate}</span>
             <span>Total Doc : {props.lot.totalDoc}</span>
             <span></span>
             <span>Total Duty : {props.lot.totalDuty}</span>
-            <span>Total Surcharge : {props.lot.totalSurcharge}</span>
-            <span>Total Fine : {props.lot.totalFine}</span>
+            <span>Total Dup Duty : {props.lot.totalDupDutyAmount}</span>
             <span>Total Payment : {props.lot.totalPayment}</span>
           </div>
           <div>
