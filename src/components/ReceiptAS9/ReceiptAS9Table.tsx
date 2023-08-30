@@ -67,7 +67,7 @@ export const ReceiptAS9Table = (props:thisModel) => {
                           width="22"
                           className="cursor-pointer text-gray-600"
                           onClick={() => {
-                            navigate(`/receipt/${lot.lotName}/detail`);
+                            navigate(`/receipt/${lot.lotId}/detail`);
                           }}
                         />
                       </td>
