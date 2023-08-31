@@ -7,12 +7,12 @@ import {
   import { Icon } from "@iconify/react";
   import { useEffect, useState } from "react";
   import { useToggle } from "../hooks/useToggle";
-  import EditDetail from "./EditDetail";
   import { HeaderSection } from "../components/ReceiptAS9Detail/HeaderSection";
   import { display, search } from "../services/ReceiptAS9Detail/ReceiptAS9DetailService";
   import { Link, useLocation } from "react-router-dom";
   import { responseModel } from "../models/ReceiptAS9Detail/ReceiptAS9DetailModel";
   import { TableSection } from "../components/ReceiptAS9Detail/TableSection";
+import { DataNotFound } from "../components/DataNotFound";
   
   export default function ReceiptAS9Detail() {
   
@@ -30,7 +30,7 @@ import {
         totalDuty: "",
         totalSurcharge: "",
         totalFine: "",
-        totalPayment: "",
+        totalAmount: "",
         totalDoc: "",
       },
       detail: [{
@@ -161,14 +161,16 @@ import {
             <Link to="/receipt" className="opacity-60">
               Receipt & AS9
             </Link>
-            <Link to={`/receipt/${data.lot.lotName}/detail`} className="opacity-60">
+            <Link to={`/receipt/${data.lot.lotId}/detail`} className="opacity-60">
               Receipt & AS9 Detail
             </Link>
           </Breadcrumbs>
         </div>
         <div className="w-full p-5 border-[#F9F9F9] border-2 rounded">
           <HeaderSection lot={data.lot}/>
-          <TableSection onSearch={onSearch} handleSearch={handleSearch} detail={data.detail} paging={data.paging} handleDisplay={handleDisplay} setHidden={setHidden} setInstId={setInstId}/>
+          {data.status === "02" ? <DataNotFound /> : 
+            <TableSection onSearch={onSearch} handleSearch={handleSearch} detail={data.detail} paging={data.paging} handleDisplay={handleDisplay} setHidden={setHidden} setInstId={setInstId}/>
+          }
         </div>
       </div>
     );

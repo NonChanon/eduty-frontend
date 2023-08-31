@@ -8,7 +8,7 @@ export type lotModel = {
     totalDuty: string,
     totalSurcharge: string,
     totalFine: string,
-    totalPayment: string,
+    totalAmount: string,
     totalDoc: string,
 }
 
