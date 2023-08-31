@@ -23,6 +23,7 @@ import { DataNotFound } from "../components/DataNotFound";
       data: {
           [""]: {
               data: [{
+                lotId: "",
                 lotName: "",
                 apiRefNo: "",
                 paymentDatetime: "",

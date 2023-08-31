@@ -169,7 +169,7 @@ export default function DetailCorrection() {
           <TableSection onSearch={onSearch} detail={data.detail} paging={data.paging} handleSearch={handleSearch} handleDisplay={handleDisplay} setHidden={setHidden} setInstId={setInstId}/>
         }
       </div>
-      {data.status !== "02" && <div className="flex justify-end mt-5">
+      {data.status !== "02" && data.lot.sendRdStatus !== "APPROVE" && <div className="flex justify-end mt-5">
         <Button className="ml-2 rounded bg-[#B0B0B0] shadow-none hover:shadow-none font-Montserrat normal-case" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
           onClick={(e) => {
             e.preventDefault();

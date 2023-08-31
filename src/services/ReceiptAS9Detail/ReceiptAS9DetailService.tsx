@@ -2,9 +2,10 @@ import { api } from "../axios";
 import { responseModel } from "../../models/ReceiptAS9Detail/ReceiptAS9DetailModel";
 
 const pageSize = 5;
-export const display = async (lotName: string, pageNo: string) => {
-  let { data } = await api.get<responseModel>(`/receipt-as9/detail/${lotName}/display`, {
+export const display = async (lotId: string, pageNo: string) => {
+  let { data } = await api.get<responseModel>(`/receipt-as9/detail/display`, {
       params: {
+        lotId: lotId,
         pageNo: pageNo,
         pageSize: pageSize,
       },

@@ -17,12 +17,13 @@ import {
   export default function ReceiptAS9Detail() {
   
     const location = useLocation();
-    const lotName:string = location.pathname.split('/')[2];
+    const lotId:string = location.pathname.split('/')[2];
   
     const [data, setData] = useState<responseModel>({
       message: "",
       status: "",
       lot: {
+        lotId: "",
         lotName: "",
         apiRefNo: "",
         paymentDatetime: "",
@@ -80,7 +81,7 @@ import {
       if (searchTaxId.partyTaxRegistration === "") {
         return handleDisplay(currentPage);
       }
-      search(lotName, searchTaxId.partyTaxRegistration, pageNo).then((res) => {
+      search(lotId, searchTaxId.partyTaxRegistration, pageNo).then((res) => {
         setCurrentPage(pageNo);
         setData(res);
         setOnSearch(true);
@@ -96,14 +97,14 @@ import {
       } else {
         document.body.style.overflow = "scroll";
       }
-      display(lotName, currentPage).then((res) => {
+      display(lotId, currentPage).then((res) => {
         setData(res);
       });
     };
   
     useEffect(() => {
       console.log("useEffect Trigger");
-      display(lotName, currentPage).then((res) => {
+      display(lotId, currentPage).then((res) => {
         setData(res);
       });
     }, []);
@@ -111,7 +112,7 @@ import {
     const handleDisplay = (pageNo: string) => {
       console.log("Change Page");
       setCurrentPage(pageNo);
-      display(lotName, pageNo).then((res) => {
+      display(lotId, pageNo).then((res) => {
         setData(res);
       });
     };
@@ -169,15 +170,6 @@ import {
           <HeaderSection lot={data.lot}/>
           <TableSection onSearch={onSearch} handleSearch={handleSearch} detail={data.detail} paging={data.paging} handleDisplay={handleDisplay} setHidden={setHidden} setInstId={setInstId}/>
         </div>
-        <div className="flex justify-end mt-5">
-          <Button className="ml-2 rounded bg-[#B0B0B0] shadow-none hover:shadow-none font-Montserrat normal-case" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-            Denied
-          </Button>
-          <Button className="ml-2 rounded bg-[#000000] shadow-none hover:shadow-none font-Montserrat normal-case" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-            Submit
-          </Button>
-        </div>
-        {isOpen && <EditDetail setHidden={setHidden} instId={instId}/>}
       </div>
     );
   }

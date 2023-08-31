@@ -13,6 +13,7 @@ export type displayPerDateReqModel = {
 }
 
 export type dataModel = {
+    lotId: string,
     lotName: string,
     apiRefNo: string,
     paymentDatetime: string,
