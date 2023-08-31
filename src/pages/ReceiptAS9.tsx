@@ -61,7 +61,9 @@ import { DataNotFound } from "../components/DataNotFound";
       search(searchLotName.lotName, pageNo).then((res) => {
         setData({
           ...data,
-          data: res.data
+          data: res.data,
+          message: res.message,
+          status: res.status
         });
         setOnSearch(true);
       });

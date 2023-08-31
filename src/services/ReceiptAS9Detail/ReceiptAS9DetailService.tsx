@@ -14,8 +14,8 @@ export const display = async (lotId: string, pageNo: string) => {
   return data;
 }
 
-export const search = async (lotName: string, taxId: string, pageNo: string) => {
-  let { data } = await api.get<responseModel>(`/receipt-as9/detail/${lotName}/search`, {
+export const search = async (lotId: string, taxId: string, pageNo: string) => {
+  let { data } = await api.get<responseModel>(`/receipt-as9/detail/${lotId}/search`, {
     params: {
       taxId: taxId,
       pageNo: pageNo,
