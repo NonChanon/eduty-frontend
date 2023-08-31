@@ -7,6 +7,8 @@ import InvoicePayment from "./pages/InvoicePayment";
 import ReceiptAS9 from "./pages/ReceiptAS9";
 import ReceiptAS9Detail from "./pages/ReceiptAS9Detail";
 
+
+
 export default function App() {
   return (
     <>
